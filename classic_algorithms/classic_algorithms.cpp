@@ -6,13 +6,15 @@
 #include "stdafx.h"
 #endif
 
+#include <iostream>
 #include "linklist_stack.h"
 #include "array_impl_stack.h"
-#include <iostream>
+#include "linklist_impl_queue.h"
 
 using namespace std;
 using namespace linked_list_stack;
 using namespace array_impl_stack;
+using namespace linklist_q;
 
 #ifdef _WIN64
 
@@ -23,16 +25,40 @@ int _tmain(int argc, _TCHAR* argv[])
 int main(int argc, char** argv)
 #endif
 {
-    /* linked list implementation stack */
+    // linked list Q implementation
+    linklist_q::Queue<int> linkedListQ;
+    unsigned int itemsCount = 1500000;
+    cout << "Enqueue " << itemsCount << " items" << endl;
+    for (int i = 0; i < itemsCount; i++) {
+        linkedListQ.enqueue(i);
+    }
+    itemsCount = 1500000;
+    cout << "Dequeue " << itemsCount << " items" << endl;
+    try{
+    for (int i = 0; i < itemsCount; i++) {
+        cout << linkedListQ.dequeue() << " ";
+    }
+    cout << endl;
+    }
+    catch(const char *str){
+        cout << endl << str << endl;
+    }
+    catch(...){
+        cout << endl << "Unknown exception" << endl;
+    }
+
+
+    /*
+    // linked list implementation stack 
     cout << "****Stack linked list implementation****" << endl;
     cout << "stack push(1-100)" << endl;
     linked_list_stack::Stack<int> integerStack;
-    for (int i = 0; i < 100; i++) {
+    for (int i = 0; i < 100000; i++) {
         integerStack.push(i);
     }
     try {
         cout << "stack pop(105)" << endl;
-        for (int i = 0; i < 105; i++) {
+        for (int i = 0; i < 105000; i++) {
             cout << integerStack.pop() << " ";
         }
     } catch (const char *p) {
@@ -53,7 +79,7 @@ int main(int argc, char** argv)
 
     cout << endl;
 
-    /* array implementation stack */
+    // array implementation stack
     cout << "****Stack resizing array implementation****" << endl;
     cout << "stack push(1-100)" << endl;
     array_impl_stack::Stack<int> integerArrayBasedStack;
@@ -86,7 +112,7 @@ int main(int argc, char** argv)
     } catch (...) {
         cout << endl << "Unknown exception" << endl;
     }
-    cout << endl;
+    cout << endl;*/
 
     return 0;
 }
