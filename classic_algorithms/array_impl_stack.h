@@ -1,6 +1,8 @@
 #ifndef __ARRAY_IMPL_STACK__
 #define __ARRAY_IMPL_STACK__
 
+#include <cstring>
+
 namespace array_impl_stack
 {
 #define DEFAULT_STACK_DEPTH 10
@@ -8,14 +10,14 @@ namespace array_impl_stack
     template <typename T> class Stack{
     private:
         T* stackArray;
-        unsigned int stackPtr;    
+        int stackPtr;    
         unsigned int arraySize;
     public:
         Stack();
         ~Stack();
         bool isEmpty();
         void push(T& item);
-        T pop();
+        T pop() throw (const char *);
     };
 
     template <typename T> Stack<T>::Stack() : stackPtr(0), arraySize(DEFAULT_STACK_DEPTH){
@@ -42,10 +44,15 @@ namespace array_impl_stack
         }
     }
 
-    template <typename T> T Stack<T>::pop(){
+    template <typename T> T Stack<T>::pop() throw (const char *){
+        if(stackPtr==0){
+            throw "Stack underflow";
+            return NULL;
+        }
+
         T val = *(stackArray+stackPtr-1);
         stackPtr--;
-        if(stackPtr<=arraySize/4){
+        if(stackPtr<=arraySize/4 && stackPtr>0){
             T* newArray = new T[arraySize/2];
             memcpy(newArray, stackArray, stackPtr*sizeof(T));
             delete[] stackArray;
