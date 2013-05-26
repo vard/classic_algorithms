@@ -10,11 +10,13 @@
 #include "linklist_stack.h"
 #include "array_impl_stack.h"
 #include "linklist_impl_queue.h"
+#include "array_impl_queue.h"
 
 using namespace std;
 using namespace linked_list_stack;
 using namespace array_impl_stack;
 using namespace linklist_q;
+using namespace array_impl_q;
 
 #ifdef _WIN64
 
@@ -25,6 +27,31 @@ int _tmain(int argc, _TCHAR* argv[])
 int main(int argc, char** argv)
 #endif
 {
+    // array Q implementation
+    array_impl_q::Queue<int> arrayQ;
+    unsigned int itemsCount = 100;
+    cout << "Enqueue " << itemsCount << " items" << endl;
+    for (int i = 0; i < itemsCount; i++) {
+        arrayQ.enqueue(i);
+    }
+    
+    itemsCount = 90;
+    cout << "Dequeue " << itemsCount << " items" << endl;
+    try{
+    for (int i = 0; i < itemsCount; i++) {
+        cout << arrayQ.dequeue() << " ";
+    }
+    cout << endl;
+    }
+    catch(const char *str){
+        cout << endl << str << endl;
+    }
+    catch(...){
+        cout << endl << "Unknown exception" << endl;
+    }
+
+
+/*
     // linked list Q implementation
     linklist_q::Queue<int> linkedListQ;
     unsigned int itemsCount = 1500000;
@@ -46,6 +73,9 @@ int main(int argc, char** argv)
     catch(...){
         cout << endl << "Unknown exception" << endl;
     }
+ */
+
+
 
 
     /*
