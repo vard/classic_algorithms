@@ -1,7 +1,16 @@
 #ifndef __LINKLIST_STACK__
 #define __LINKLIST_STACK__
 
+#if defined  _WIN32
 #include "stdafx.h"
+#endif
+
+#ifdef _WIN64
+#include "stdafx.h"
+#endif
+
+#include <cstdlib>
+
 namespace linked_list_stack
 {
 
@@ -17,7 +26,7 @@ namespace linked_list_stack
         Stack();
         ~Stack();
         void push(T& item);
-        T pop();
+        T pop() throw (const char *);
         bool isEmpty();
     private:
         Node<T>* first;
@@ -43,7 +52,11 @@ namespace linked_list_stack
         first = newNode;
     }
 
-    template <typename T> T Stack<T>::pop(){
+    template <typename T> T Stack<T>::pop() throw (const char *){
+        if(first==NULL){
+            throw ("Stack underflow");
+            return NULL;
+        }
         Node<T> tempNode;
         tempNode.next = first->next;
         tempNode.value = first->value;
