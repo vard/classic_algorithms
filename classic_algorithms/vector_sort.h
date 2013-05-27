@@ -8,7 +8,6 @@ public:
     virtual void sort(vector<T>& items) = 0;  
 };
 
-//template <typename T>void VectorSort<T>::exch(std::vector<T>::iterator it, std::vector<T>::iterator jt){
 template <typename T>void VectorSort<T>::exch(std::vector<T>& items, int i, int j){
         T swap;
         swap = (items)[i];

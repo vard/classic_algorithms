@@ -15,6 +15,7 @@
 #include "array_impl_queue.h"
 #include "selection_sort.h"
 #include "insertion_sort.h"
+#include "shell_sort.h"
 
 
 using namespace std;
@@ -36,12 +37,24 @@ int _tmain(int argc, _TCHAR* argv[])
 int main(int argc, char** argv)
 #endif
 {
+    
     vector<int> intVec;
     srand(time(NULL));
-    for(int i = 0; i < 100; i++){  
+    for(int i = 0; i < 100000; i++){  
         intVec.push_back(rand()%(1000+1)) ;
     }
 
+    // Shellsort
+    cout << "Shellsort" << endl;
+    Shell<int> intShellSort;
+    intShellSort.sort(intVec);
+
+    for(std::vector<int>::iterator it = intVec.begin(); it != intVec.end(); ++it){
+        cout << *it << " ";
+    }
+    cout << endl;
+
+    /*
     // Insertion sort
     cout << "Insertion sort: " << endl;
     Insertion<int> intInsertion;
@@ -50,7 +63,7 @@ int main(int argc, char** argv)
         cout << *it << " ";
     }
     cout << endl;
-
+    */
     /*
     // Selection sort
     cout << "Selection sort: " << endl;    
