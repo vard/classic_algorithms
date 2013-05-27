@@ -7,19 +7,27 @@
 #endif
 
 #include <iostream>
+#include <vector>
+#include <ctime>
 #include "linklist_stack.h"
 #include "array_impl_stack.h"
 #include "linklist_impl_queue.h"
 #include "array_impl_queue.h"
+#include "selection_sort.h"
+
 
 using namespace std;
 using namespace linked_list_stack;
 using namespace array_impl_stack;
 using namespace linklist_q;
 using namespace array_impl_q;
+using namespace selection_sort;
 
 #ifdef _WIN64
+int _tmain(int argc, _TCHAR* argv[])
+#endif
 
+#ifdef _WIN32
 int _tmain(int argc, _TCHAR* argv[])
 #endif
 
@@ -27,6 +35,22 @@ int _tmain(int argc, _TCHAR* argv[])
 int main(int argc, char** argv)
 #endif
 {
+    // Selection sort
+    cout << "Selection sort: " << endl;
+    vector<int> intVec;
+    srand(time(NULL));
+    for(int i = 0; i < 10000; i++){  
+        intVec.push_back(rand()%(1000+1)) ;
+    }
+    Selection<int> intSelection;
+    intSelection.sort(intVec);
+    
+    for(std::vector<int>::iterator it = intVec.begin(); it != intVec.end(); ++it){
+        cout << *it << " ";
+    }
+    cout << endl;
+    
+
     // array Q implementation
     array_impl_q::Queue<int> arrayQ;
     unsigned int itemsCount = 100;
@@ -38,7 +62,7 @@ int main(int argc, char** argv)
     itemsCount = 90;
     cout << "Dequeue " << itemsCount << " items" << endl;
     try{
-    for (int i = 0; i < itemsCount; i++) {
+    for (unsigned int i = 0; i < itemsCount; i++) {
         cout << arrayQ.dequeue() << " ";
     }
     cout << endl;

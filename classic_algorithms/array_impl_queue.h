@@ -68,7 +68,7 @@ namespace array_impl_q {
         if (tail - head <= capacity / 4) {
             capacity /= 2;
             T* newArray = new T[capacity];
-            for (int i = 0; i < tail - head; i++) {
+            for (unsigned int i = 0; i < tail - head; i++) {
                 newArray[i] = qArray[i + head];
             }
             delete[] qArray;
