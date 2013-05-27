@@ -14,6 +14,7 @@
 #include "linklist_impl_queue.h"
 #include "array_impl_queue.h"
 #include "selection_sort.h"
+#include "insertion_sort.h"
 
 
 using namespace std;
@@ -35,13 +36,24 @@ int _tmain(int argc, _TCHAR* argv[])
 int main(int argc, char** argv)
 #endif
 {
-    // Selection sort
-    cout << "Selection sort: " << endl;
     vector<int> intVec;
     srand(time(NULL));
-    for(int i = 0; i < 10000; i++){  
+    for(int i = 0; i < 100; i++){  
         intVec.push_back(rand()%(1000+1)) ;
     }
+
+    // Insertion sort
+    cout << "Insertion sort: " << endl;
+    Insertion<int> intInsertion;
+    intInsertion.sort(intVec);
+    for(std::vector<int>::iterator it = intVec.begin(); it != intVec.end(); ++it){
+        cout << *it << " ";
+    }
+    cout << endl;
+
+    /*
+    // Selection sort
+    cout << "Selection sort: " << endl;    
     Selection<int> intSelection;
     intSelection.sort(intVec);
     
@@ -49,7 +61,7 @@ int main(int argc, char** argv)
         cout << *it << " ";
     }
     cout << endl;
-    
+    */
 
     // array Q implementation
     array_impl_q::Queue<int> arrayQ;
