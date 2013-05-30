@@ -16,6 +16,7 @@
 #include "selection_sort.h"
 #include "insertion_sort.h"
 #include "shell_sort.h"
+#include "mergesort.h"
 
 
 using namespace std;
@@ -40,10 +41,21 @@ int main(int argc, char** argv)
     
     vector<int> intVec;
     srand(time(NULL));
-    for(int i = 0; i < 100000; i++){  
+    for(int i = 0; i < 10000; i++){  
         intVec.push_back(rand()%(1000+1)) ;
     }
 
+    // Mergesort
+    cout << "Mergesort" << endl;
+    Mergesort<int> intMergeSort;
+    intMergeSort.sort(intVec);
+
+    for(std::vector<int>::iterator it = intVec.begin(); it != intVec.end(); ++it){
+        cout << *it << " ";
+    }
+    cout << endl;
+
+    /*
     // Shellsort
     cout << "Shellsort" << endl;
     Shell<int> intShellSort;
@@ -53,17 +65,18 @@ int main(int argc, char** argv)
         cout << *it << " ";
     }
     cout << endl;
-
-    /*
+    */
+    
     // Insertion sort
     cout << "Insertion sort: " << endl;
     Insertion<int> intInsertion;
-    intInsertion.sort(intVec);
+   
+    intInsertion.sort(intVec, 0, 20);
     for(std::vector<int>::iterator it = intVec.begin(); it != intVec.end(); ++it){
         cout << *it << " ";
     }
     cout << endl;
-    */
+    
     /*
     // Selection sort
     cout << "Selection sort: " << endl;    
