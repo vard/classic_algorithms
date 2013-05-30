@@ -40,7 +40,7 @@ int main(int argc, char** argv)
 {
     
     vector<int> intVec;
-    srand(time(NULL));
+    srand((unsigned int)time(NULL));
     for(int i = 0; i < 10000; i++){  
         intVec.push_back(rand()%(1000+1)) ;
     }
@@ -48,7 +48,8 @@ int main(int argc, char** argv)
     // Mergesort
     cout << "Mergesort" << endl;
     Mergesort<int> intMergeSort;
-    intMergeSort.sort(intVec);
+    //intMergeSort.sort(intVec);
+    intMergeSort.bottomUpSort(intVec);
 
     for(std::vector<int>::iterator it = intVec.begin(); it != intVec.end(); ++it){
         cout << *it << " ";
@@ -91,7 +92,7 @@ int main(int argc, char** argv)
 
     // array Q implementation
     array_impl_q::Queue<int> arrayQ;
-    unsigned int itemsCount = 100;
+    int itemsCount = 100;
     cout << "Enqueue " << itemsCount << " items" << endl;
     for (int i = 0; i < itemsCount; i++) {
         arrayQ.enqueue(i);
@@ -100,7 +101,7 @@ int main(int argc, char** argv)
     itemsCount = 90;
     cout << "Dequeue " << itemsCount << " items" << endl;
     try{
-    for (unsigned int i = 0; i < itemsCount; i++) {
+    for (int i = 0; i < itemsCount; i++) {
         cout << arrayQ.dequeue() << " ";
     }
     cout << endl;

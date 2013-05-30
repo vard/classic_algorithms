@@ -24,7 +24,7 @@ template <typename T>void Insertion<T>::sort(vector<T>& items, unsigned int lo, 
     }
         
 
-    for(int i = lo; i <= hi; i++){
+    for(unsigned int i = lo; i <= hi; i++){
         for(int j=i; j > 0; j--){
             if(items[j]<items[j-1]){
                 exch(items, j, j-1);
