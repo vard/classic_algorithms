@@ -8,7 +8,7 @@
 
 using namespace std;
 
-#define CUTOFF 6
+#define CUTOFF 4
 
 template <typename T> class Mergesort : public VectorSort<T>{
 private:

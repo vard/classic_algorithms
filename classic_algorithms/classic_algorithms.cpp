@@ -17,6 +17,7 @@
 #include "insertion_sort.h"
 #include "shell_sort.h"
 #include "mergesort.h"
+#include "quicksort.h"
 
 
 using namespace std;
@@ -25,6 +26,11 @@ using namespace array_impl_stack;
 using namespace linklist_q;
 using namespace array_impl_q;
 using namespace selection_sort;
+
+int compare (const void * a, const void * b)
+{
+  return ( *(int*)a - *(int*)b );
+}
 
 #ifdef _WIN64
 int _tmain(int argc, _TCHAR* argv[])
@@ -38,13 +44,36 @@ int _tmain(int argc, _TCHAR* argv[])
 int main(int argc, char** argv)
 #endif
 {
-    
-    vector<int> intVec;
-    srand((unsigned int)time(NULL));
-    for(int i = 0; i < 10000; i++){  
-        intVec.push_back(rand()%(1000+1)) ;
-    }
+    while(1){
+        vector<int> intVec;
+        srand((unsigned int)time(NULL));
+        for(int i = 0; i < 1000000; i++){  
+            intVec.push_back(rand()) ;
+        }
 
+        // Quicksort
+        cout << "Quicksort:" << endl;
+        QuickSort<int> intQuicksort;
+        Mergesort<int> intMergeSort;
+
+        time_t before, after;
+        time(&before);
+
+        //qsort(&intVec[0], intVec.size(), sizeof(int), compare);
+        intQuicksort.sort(intVec);
+        //std::sort(intVec.begin(), intVec.end());
+        //intMergeSort.sort(intVec);
+        time(&after);
+        double sec = difftime(after, before);
+
+        if(intQuicksort.isSorted(intVec))
+            cout << "Sorted";
+        else
+            cout << "Not sorted";
+
+        cout << endl;
+    }
+    /*
     // Mergesort
     cout << "Mergesort" << endl;
     Mergesort<int> intMergeSort;
@@ -52,10 +81,10 @@ int main(int argc, char** argv)
     intMergeSort.bottomUpSort(intVec);
 
     for(std::vector<int>::iterator it = intVec.begin(); it != intVec.end(); ++it){
-        cout << *it << " ";
+    cout << *it << " ";
     }
     cout << endl;
-
+    */
     /*
     // Shellsort
     cout << "Shellsort" << endl;
@@ -63,29 +92,30 @@ int main(int argc, char** argv)
     intShellSort.sort(intVec);
 
     for(std::vector<int>::iterator it = intVec.begin(); it != intVec.end(); ++it){
-        cout << *it << " ";
+    cout << *it << " ";
     }
     cout << endl;
     */
-    
+
+    /*
     // Insertion sort
     cout << "Insertion sort: " << endl;
     Insertion<int> intInsertion;
-   
+
     intInsertion.sort(intVec, 0, 20);
     for(std::vector<int>::iterator it = intVec.begin(); it != intVec.end(); ++it){
-        cout << *it << " ";
+    cout << *it << " ";
     }
-    cout << endl;
-    
+    cout << endl;*/
+
     /*
     // Selection sort
     cout << "Selection sort: " << endl;    
     Selection<int> intSelection;
     intSelection.sort(intVec);
-    
+
     for(std::vector<int>::iterator it = intVec.begin(); it != intVec.end(); ++it){
-        cout << *it << " ";
+    cout << *it << " ";
     }
     cout << endl;
     */
@@ -97,14 +127,14 @@ int main(int argc, char** argv)
     for (int i = 0; i < itemsCount; i++) {
         arrayQ.enqueue(i);
     }
-    
+
     itemsCount = 90;
     cout << "Dequeue " << itemsCount << " items" << endl;
     try{
-    for (int i = 0; i < itemsCount; i++) {
-        cout << arrayQ.dequeue() << " ";
-    }
-    cout << endl;
+        for (int i = 0; i < itemsCount; i++) {
+            cout << arrayQ.dequeue() << " ";
+        }
+        cout << endl;
     }
     catch(const char *str){
         cout << endl << str << endl;
@@ -114,29 +144,29 @@ int main(int argc, char** argv)
     }
 
 
-/*
+    /*
     // linked list Q implementation
     linklist_q::Queue<int> linkedListQ;
     unsigned int itemsCount = 1500000;
     cout << "Enqueue " << itemsCount << " items" << endl;
     for (int i = 0; i < itemsCount; i++) {
-        linkedListQ.enqueue(i);
+    linkedListQ.enqueue(i);
     }
     itemsCount = 1500000;
     cout << "Dequeue " << itemsCount << " items" << endl;
     try{
     for (int i = 0; i < itemsCount; i++) {
-        cout << linkedListQ.dequeue() << " ";
+    cout << linkedListQ.dequeue() << " ";
     }
     cout << endl;
     }
     catch(const char *str){
-        cout << endl << str << endl;
+    cout << endl << str << endl;
     }
     catch(...){
-        cout << endl << "Unknown exception" << endl;
+    cout << endl << "Unknown exception" << endl;
     }
- */
+    */
 
 
 
@@ -147,27 +177,27 @@ int main(int argc, char** argv)
     cout << "stack push(1-100)" << endl;
     linked_list_stack::Stack<int> integerStack;
     for (int i = 0; i < 100000; i++) {
-        integerStack.push(i);
+    integerStack.push(i);
     }
     try {
-        cout << "stack pop(105)" << endl;
-        for (int i = 0; i < 105000; i++) {
-            cout << integerStack.pop() << " ";
-        }
+    cout << "stack pop(105)" << endl;
+    for (int i = 0; i < 105000; i++) {
+    cout << integerStack.pop() << " ";
+    }
     } catch (const char *p) {
-        cout << endl << p << endl;
+    cout << endl << p << endl;
     } catch (...) {
-        cout << "Unknown exception" << endl;
+    cout << "Unknown exception" << endl;
     }
 
     cout << endl;
     cout << "stack push(1-100)" << endl;
     for (int i = 0; i < 100; i++) {
-        integerStack.push(i);
+    integerStack.push(i);
     }
     cout << "stack pop all" << endl;
     while (!integerStack.isEmpty()) {
-        cout << integerStack.pop() << " ";
+    cout << integerStack.pop() << " ";
     }
 
     cout << endl;
@@ -177,33 +207,33 @@ int main(int argc, char** argv)
     cout << "stack push(1-100)" << endl;
     array_impl_stack::Stack<int> integerArrayBasedStack;
     for (int i = 0; i < 100; i++) {
-        integerArrayBasedStack.push(i);
+    integerArrayBasedStack.push(i);
     }
 
     try {
-        cout << "stack pop(105)" << endl;
-        for (int i = 0; i < 105; i++) {
-            cout << integerArrayBasedStack.pop() << " ";
-        }
+    cout << "stack pop(105)" << endl;
+    for (int i = 0; i < 105; i++) {
+    cout << integerArrayBasedStack.pop() << " ";
+    }
     } catch (const char *p) {
-        cout << endl << p << endl;
+    cout << endl << p << endl;
     } catch (...) {
-        cout << "Unknown exception" << endl;
+    cout << "Unknown exception" << endl;
     }
 
     cout << "stack push(1-100)" << endl;
     for (int i = 0; i < 100; i++) {
-        integerArrayBasedStack.push(i);
+    integerArrayBasedStack.push(i);
     }
     cout << "stack pop all" << endl;
     try {
-        while (!integerArrayBasedStack.isEmpty()) {
-            cout << integerArrayBasedStack.pop() << " ";
-        }
+    while (!integerArrayBasedStack.isEmpty()) {
+    cout << integerArrayBasedStack.pop() << " ";
+    }
     } catch (const char* p) {
-        cout << endl << p << endl;
+    cout << endl << p << endl;
     } catch (...) {
-        cout << endl << "Unknown exception" << endl;
+    cout << endl << "Unknown exception" << endl;
     }
     cout << endl;*/
 
