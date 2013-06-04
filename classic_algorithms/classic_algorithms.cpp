@@ -54,7 +54,7 @@ int main(int argc, char** argv)
         binarySearchST.put("Антоa", 11);
         binarySearchST.put("Говняшкин", 11);
         binarySearchST.put("Церендагвa", 11);
-        binarySearchST.put("Церендагвa", 15);
+        binarySearchST.remove("Церендагвa");
         srand((unsigned int)time(NULL));
 
         for(int i = 0; i < 1000; i++){
