@@ -18,6 +18,8 @@
 #include "shell_sort.h"
 #include "mergesort.h"
 #include "quicksort.h"
+#include "binary_search_st.h"
+#include <string>
 
 
 using namespace std;
@@ -45,8 +47,31 @@ int main(int argc, char** argv)
 #endif
 {
     while(1){
-        vector<int> intVec;
+        BinSearchST<string, int> binarySearchST;
+        binarySearchST.put("Вчерашний", 14);
+        binarySearchST.put("Скорняков", 12);
+        binarySearchST.put("Антохин", 13);
+        binarySearchST.put("Антоa", 11);
+        binarySearchST.put("Говняшкин", 11);
+        binarySearchST.put("Церендагвa", 11);
+        binarySearchST.put("Церендагвa", 15);
         srand((unsigned int)time(NULL));
+
+        for(int i = 0; i < 1000; i++){
+            string newStr;
+            newStr.insert(newStr.end(), (char)(rand()%93+33));
+            newStr.insert(newStr.end(), (char)(rand()%93+33));
+            newStr.insert(newStr.end(), (char)(rand()%93+33));
+            binarySearchST.put(newStr, rand()%101);
+        }
+
+        int val = binarySearchST.get("Скорняков");
+        val = binarySearchST.get("Говняшкин");
+        val = binarySearchST.get("Церендагвa");
+        val = binarySearchST.get("Вчерашний");
+
+        vector<int> intVec;
+        
         for(int i = 0; i < 1000000; i++){  
             intVec.push_back(rand()) ;
         }
