@@ -19,6 +19,7 @@
 #include "mergesort.h"
 #include "quicksort.h"
 #include "binary_search_st.h"
+#include "binary_tree_st.h"
 #include <string>
 
 
@@ -47,6 +48,9 @@ int main(int argc, char** argv)
 #endif
 {
     while(1){
+        BinTreeST<string, int> binTreeST;
+        binTreeST.put("Вчерашний", 14);
+
         BinSearchST<string, int> binarySearchST;
         binarySearchST.put("Вчерашний", 14);
         binarySearchST.put("Скорняков", 12);

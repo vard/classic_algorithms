@@ -22,6 +22,7 @@ private:
     vector<pair<K,V>> items;    
     void sort();
     int binSearch(K key, int lo, int hi);
+    int binSearchNonRecursive(const K& key);
 public:
     //binSearchST(const std::vector<T>& items);
     void put(const K key, const V val);
@@ -30,6 +31,23 @@ public:
     int size();
     bool isEmpty();    
 };
+
+template <typename K, typename V>int BinSearchST<K,V>::binSearchNonRecursive(const K& key){
+    int lo = 0;
+    int hi = items.size()-1;
+    
+    while(lo<=hi){
+        int mid = lo + (hi - lo)/2;
+        if(items[mid].first==key)
+            return mid;
+        else if(key>items[mid].first)
+            lo = mid + 1;
+        else
+            hi = mid - 1;
+    }
+    return lo;
+
+}
 
 template <typename K, typename V>int BinSearchST<K,V>::binSearch(K key, int lo, int hi){
     if(isEmpty())
@@ -68,11 +86,22 @@ template <typename K, typename V>bool BinSearchST<K,V>::isEmpty(){
 }
 
 template <typename K, typename V>V BinSearchST<K,V>::get(K key){
-    int index = 0;
-    if((index = binSearch(key, 0, items.size()-1))!=NULL)
+    if(isEmpty()){
+        return NULL;
+    }
+
+    int index = binSearchNonRecursive(key);
+    if(index < items.size() && items[index].first == key  )
         return items[index].second;
     else
         return NULL;
+    /*
+
+    int index = 0;
+    if((index = binSearch(key, 0, items.size()-1))!=NULL)
+    return items[index].second;
+    else
+    return NULL;*/
 
 }
 
