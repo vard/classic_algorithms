@@ -41,9 +41,11 @@ template <typename K, typename V>void BinTreeST<K,V>::remove(K key){
 
 template <typename K, typename V>void BinTreeST<K,V>::put(const K key, const V val){
     TreeNode<K,V>* newNode = new TreeNode<K,V>(key, val);
-    if(isEmpty())
+    if(isEmpty()){
         root = newNode;
-    //return NULL;
+        return;
+    }
+    
 }
 
 template <typename K, typename V>V BinTreeST<K,V>::get(K key){

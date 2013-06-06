@@ -20,6 +20,7 @@
 #include "quicksort.h"
 #include "binary_search_st.h"
 #include "binary_tree_st.h"
+#include "bin_heap_impl_priority_q.h"
 #include <string>
 
 
@@ -32,7 +33,7 @@ using namespace selection_sort;
 
 int compare (const void * a, const void * b)
 {
-  return ( *(int*)a - *(int*)b );
+    return ( *(int*)a - *(int*)b );
 }
 
 #ifdef _WIN64
@@ -48,6 +49,21 @@ int main(int argc, char** argv)
 #endif
 {
     while(1){
+        MaxPQ<int> maxPQ;
+
+        srand((unsigned int)time(NULL));
+        for(int i = 0; i < 10000; i++){  
+            maxPQ.insert(rand());
+        }
+
+        for(int i = 0; i < 10000; i++){  
+            int k;
+            while(maxPQ.delMax(&k)){
+                cout << k << " ";
+            }
+        }
+        cout << endl;
+
         BinTreeST<string, int> binTreeST;
         binTreeST.put("Вчерашний", 14);
 
@@ -59,7 +75,7 @@ int main(int argc, char** argv)
         binarySearchST.put("Говняшкин", 11);
         binarySearchST.put("Церендагвa", 11);
         binarySearchST.remove("Церендагвa");
-        srand((unsigned int)time(NULL));
+        
 
         for(int i = 0; i < 1000; i++){
             string newStr;
@@ -75,7 +91,7 @@ int main(int argc, char** argv)
         val = binarySearchST.get("Вчерашний");
 
         vector<int> intVec;
-        
+
         for(int i = 0; i < 1000000; i++){  
             intVec.push_back(rand()) ;
         }
