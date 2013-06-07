@@ -21,6 +21,7 @@
 #include "binary_search_st.h"
 #include "binary_tree_st.h"
 #include "bin_heap_impl_priority_q.h"
+#include "heapsort.h"
 #include <string>
 
 
@@ -52,6 +53,12 @@ int main(int argc, char** argv)
         MaxPQ<int> maxPQ;
 
         srand((unsigned int)time(NULL));
+        int arr[1000];
+        for(int i = 0; i < 1000; i++){  
+            arr[i]=rand();
+        }
+        heapsort<int>(arr, 1000);
+
         for(int i = 0; i < 10000; i++){  
             maxPQ.insert(rand());
         }
