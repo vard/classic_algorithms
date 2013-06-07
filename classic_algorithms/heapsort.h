@@ -1,3 +1,13 @@
+/*
+ * Heapsort:
+ * - is optimal for time and space
+ * - in-place, NlogN
+ * - longer inner loop than quicksort's
+ * - not stable
+ * Heap construction takes <= 2N compares and exchanges
+ * Heapsort uses <= 2NlgN compares and exchanges
+ */
+
 template <typename K>void exch(K* arr, int i, int j){
     K temp = arr[i];
     arr[i]=arr[j];
