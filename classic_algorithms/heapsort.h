@@ -1,3 +1,6 @@
+#ifndef __HEAPSORT_H__
+#define __HEAPSORT_H__
+
 /*
  * Heapsort:
  * - is optimal for time and space
@@ -40,3 +43,5 @@ template <typename K>void heapsort(K* arr, int size){
     }
 
 }
+
+#endif

@@ -1,3 +1,5 @@
+#ifndef __BIN_HEAP_IMPL_PRIORITY_Q_H__
+#define __BIN_HEAP_IMPL_PRIORITY_Q_H__
 #include <vector>
 
 template <typename K> class MaxPQ{
@@ -72,3 +74,5 @@ template <typename K>void MaxPQ<K>::insert(const K& key){
 template <typename K>bool MaxPQ<K>::isEmpty(){
     return (pq.size() == 1);
 }
+
+#endif

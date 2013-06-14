@@ -1,3 +1,5 @@
+#ifndef __BINARY_SEARH_ST_H__
+#define __BINARY_SEARH_ST_H__
 #include <vector>
 #include <algorithm>
 #include <utility>
@@ -115,3 +117,5 @@ template <typename K, typename V> void BinSearchST<K,V>::put(const K key, const 
     }
     this->sort();
 }
+
+#endif
