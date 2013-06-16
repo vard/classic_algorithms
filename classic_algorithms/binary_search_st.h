@@ -21,7 +21,7 @@ template <typename K, typename V> bool comparePairs(const std::pair<K,V>& lhs, c
 
 template <typename K, typename V> class BinSearchST : public SymbolTableInterface<K,V>{
 private:
-    vector<pair<K,V>> items;    
+    vector<pair<K,V> > items;
     void sort();
     int binSearch(K key, int lo, int hi);
     int binSearchNonRecursive(const K& key);

@@ -57,8 +57,8 @@ template <typename T>void QuickSort<T>::sort(std::vector<T>& items, int lo, int 
         return;
     }
 
-    std::vector<T>::iterator start = items.begin()+lo;
-    std::vector<T>::iterator end = items.begin()+hi;
+    typename std::vector<T>::iterator start = items.begin()+lo;
+    typename std::vector<T>::iterator end = items.begin()+hi;
    // random_shuffle(start, end);
     medianOf3(items, lo, (hi-lo)/2+lo, hi);
 

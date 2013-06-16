@@ -74,13 +74,14 @@ int main(int argc, char** argv)
         cout << endl;*/
 
         BinTreeST<string, int> binTreeST;
-        binTreeST.put("Вчерашний", 14);
-        binTreeST.put("Скорняков", 12);
-        binTreeST.put("Ростова", 12);
-        binTreeST.put("Антохин", 13);
-        binTreeST.put("Антоa", 11);
-        binTreeST.put("Говняшкин", 11);
-        binTreeST.put("Церендагвa", 11);/*
+        binTreeST.put("Skornyakov", 14);
+        binTreeST.put("Abramov", 12);
+        binTreeST.put("Antonov", 12);
+        binTreeST.put("Ivanov", 12);
+        binTreeST.put("Sidorov", 13);
+        binTreeST.put("Nesterov", 11);
+        binTreeST.put("Nesterenko", 11);
+        binTreeST.put("Kolcov", 11);/*
         for(int i = 0; i < 1000; i++){
             string newStr;
             newStr.insert(newStr.end(), (char)(rand()%93+33));
@@ -90,19 +91,24 @@ int main(int argc, char** argv)
         }*/
 
 
-        int val = binTreeST.get("Церендагвa");
-        string floorVal = binTreeST.floor("ААА");
+        int val = binTreeST.get("Skornyakov");
+        std::string searchitem("Azotov");
+        string floorVal = binTreeST.floor(searchitem);
+        string ceilingVal = binTreeST.ceiling(searchitem);
+        std::cout << "floor(" << searchitem <<") = " << floorVal << endl;
+        std::cout << "ceiling(" << searchitem <<") = " << ceilingVal << endl;
+        std::cout << "rank(" << searchitem <<") = " << binTreeST.rank(searchitem) << endl;
 
 
 
         BinSearchST<string, int> binarySearchST;
-        binarySearchST.put("Вчерашний", 14);
-        binarySearchST.put("Скорняков", 12);
-        binarySearchST.put("Антохин", 13);
-        binarySearchST.put("Антоa", 11);
-        binarySearchST.put("Говняшкин", 11);
-        binarySearchST.put("Церендагвa", 11);
-        binarySearchST.remove("Церендагвa");
+        binarySearchST.put("пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ", 14);
+        binarySearchST.put("пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ", 12);
+        binarySearchST.put("пїЅпїЅпїЅпїЅпїЅпїЅпїЅ", 13);
+        binarySearchST.put("пїЅпїЅпїЅпїЅa", 11);
+        binarySearchST.put("пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ", 11);
+        binarySearchST.put("пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅa", 11);
+        binarySearchST.remove("пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅa");
         
 
         for(int i = 0; i < 1000; i++){
@@ -113,10 +119,10 @@ int main(int argc, char** argv)
             binarySearchST.put(newStr, rand()%101);
         }
 
-        val = binarySearchST.get("Скорняков");
-        val = binarySearchST.get("Говняшкин");
-        val = binarySearchST.get("Церендагвa");
-        val = binarySearchST.get("Вчерашний");
+        val = binarySearchST.get("пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ");
+        val = binarySearchST.get("пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ");
+        val = binarySearchST.get("пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅa");
+        val = binarySearchST.get("пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ");
 
         vector<int> intVec;
 
