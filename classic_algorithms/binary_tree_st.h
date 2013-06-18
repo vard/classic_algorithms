@@ -15,7 +15,7 @@ template <typename K, typename V>TreeNode<K,V>::TreeNode(const K& key, const V& 
 value(value),
 left(NULL),
 right(NULL),
-count(0){
+count(1){
 }
 
 template <typename K, typename V> class BinTreeST : public SymbolTableInterface<K,V>{
@@ -27,6 +27,7 @@ private:
     TreeNode<K,V>* remove(TreeNode<K,V>* node, const K& key);
     int size(const TreeNode<K,V>* node);
     int rank(const TreeNode<K,V>* node, const K& key);
+    TreeNode<K,V>* deleteMin(TreeNode<K,V>* node);
 public:
     BinTreeST();
     bool isEmpty();
@@ -40,7 +41,25 @@ public:
     K floor(const K& key);
     K ceiling(const K& key);
     int rank(const K& key);
+    void deleteMin();
+
 };
+
+template <typename K, typename V>void BinTreeST<K,V>::deleteMin(){
+    root = deleteMin(root);
+}
+
+template <typename K, typename V>TreeNode<K,V>* BinTreeST<K,V>::deleteMin(TreeNode<K,V>* node){
+    if(NULL == node) return NULL;
+    if(NULL == node->left){
+        TreeNode<K,V>* tmpNode = node->right;
+        delete node;
+        return tmpNode;
+    }
+    node->left = deleteMin(node->left);
+    node->count = 1 + size(node->left) + size(node->right);
+    return node;
+}
 
 template <typename K, typename V>int BinTreeST<K,V>::rank(const TreeNode<K,V>* node, const K& key){
     if(NULL == node)
@@ -148,7 +167,7 @@ template <typename K, typename V>bool BinTreeST<K,V>::contains(K key){
     return NULL;
 }
 
-template <typename K, typename V>TreeNode<K,V>* BinTreeST<K,V>::remove(TreeNode<K,V>* node, const K& key)
+template <typename K, typename V>TreeNode<K,V>* BinTreeST<K,V>::remove(TreeNode<K,V>* node, const K& key){
 
 }
 

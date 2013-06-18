@@ -81,7 +81,12 @@ int main(int argc, char** argv)
         binTreeST.put("Sidorov", 13);
         binTreeST.put("Nesterov", 11);
         binTreeST.put("Nesterenko", 11);
-        binTreeST.put("Kolcov", 11);/*
+        binTreeST.put("Kolcov", 11);
+        int bstSize = binTreeST.size();
+        binTreeST.deleteMin();
+        bstSize = binTreeST.size();
+
+        /*
         for(int i = 0; i < 1000; i++){
             string newStr;
             newStr.insert(newStr.end(), (char)(rand()%93+33));
