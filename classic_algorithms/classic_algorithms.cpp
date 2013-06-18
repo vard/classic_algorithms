@@ -76,6 +76,7 @@ int main(int argc, char** argv)
         BinTreeST<string, int> binTreeST;
         binTreeST.put("Skornyakov", 14);
         binTreeST.put("Abramov", 12);
+        binTreeST.put("Aaskold", 12);
         binTreeST.put("Antonov", 12);
         binTreeST.put("Ivanov", 12);
         binTreeST.put("Sidorov", 13);
@@ -83,7 +84,11 @@ int main(int argc, char** argv)
         binTreeST.put("Nesterenko", 11);
         binTreeST.put("Kolcov", 11);
         int bstSize = binTreeST.size();
-        binTreeST.deleteMin();
+        binTreeST.remove("Abramov");
+        bstSize = binTreeST.size();
+        binTreeST.remove("Skornyakov");
+        bstSize = binTreeST.size();
+        binTreeST.remove("Aaskold");
         bstSize = binTreeST.size();
 
         /*
