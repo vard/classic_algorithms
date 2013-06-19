@@ -218,8 +218,8 @@ template <typename K, typename V>V BinTreeST<K, V>::get(K key) {
     TreeNode<K, V>* tempNode = root;
     while (NULL != tempNode) {
         if (key < (tempNode->key)) tempNode = tempNode->left;
-        if (key > (tempNode->key)) tempNode = tempNode->right;
-        if (key == (tempNode->key)) return tempNode->value;
+        else if (key > (tempNode->key)) tempNode = tempNode->right;
+        else if (key == (tempNode->key)) return tempNode->value;
     }
     return NULL;
 }

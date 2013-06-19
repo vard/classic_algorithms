@@ -112,7 +112,7 @@ template <typename K, typename V> void BinSearchST<K,V>::put(const K key, const 
     if(!this->contains(key)){
         this->items.push_back(pair<K,V>(key, val));
     } else {
-        throw "Key already exists in collection";
+        //throw "Key already exists in collection";
         return;
     }
     this->sort();
