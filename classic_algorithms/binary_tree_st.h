@@ -31,6 +31,7 @@ private:
     TreeNode<K, V>* min(TreeNode<K, V>* node);
 public:
     BinTreeST();
+    ~BinTreeST();
     bool isEmpty();
     void put(const K key, const V val);
     V get(K key);
@@ -45,6 +46,10 @@ public:
     void deleteMin();
 
 };
+
+template <typename K, typename V> BinTreeST<K, V>::~BinTreeST(){
+
+}
 
 template <typename K, typename V>void BinTreeST<K, V>::deleteMin() {
     root = deleteMin(root);

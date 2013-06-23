@@ -22,6 +22,7 @@
 #include "binary_tree_st.h"
 #include "bin_heap_impl_priority_q.h"
 #include "heapsort.h"
+#include "red_black_tree_st.h"
 #include <string>
 
 
@@ -49,6 +50,15 @@ int _tmain(int argc, _TCHAR* argv[])
 int main(int argc, char** argv)
 #endif
 {
+
+    RBTreeST<std::string, int> phoneNumbers;
+    phoneNumbers.put("Skornyakov", 2);
+    phoneNumbers.put("Abramov", 3);
+    phoneNumbers.put("Losev", 4);
+    phoneNumbers.put("Utin", 5);
+
+
+    
     while(1){
         MaxPQ<int> maxPQ;
 
