@@ -52,6 +52,12 @@ int main(int argc, char** argv)
 #endif
 {
     HashTableST<std::string, int> myHahTableST;
+    if(myHahTableST.isEmpty())
+        std::cout << "Hash table is empty";
+    else
+        std:: cout << "Hash table is not empty";
+    std::cout << endl;
+
     myHahTableST.put("Skornyakov", 2);
     myHahTableST.put("Skornyakov", 3);
     myHahTableST.put("Abramov", 3);
@@ -62,6 +68,11 @@ int main(int argc, char** argv)
     val = myHahTableST.get("Utin");
     myHahTableST.remove("Skornyakov");
 
+    if(myHahTableST.isEmpty())
+        std::cout << "Hash table is empty";
+    else
+        std:: cout << "Hash table is not empty";
+    std::cout << endl;
 
 
     RBTreeST<std::string, int> phoneNumbers;
@@ -74,14 +85,14 @@ int main(int argc, char** argv)
     test = phoneNumbers.contains("Utin");    
 
     
-    while(1){
+  /*  while(1){
         MaxPQ<int> maxPQ;
 
         srand((unsigned int)time(NULL));
         int arr[1000];
         for(int i = 0; i < 1000; i++){  
             arr[i]=rand();
-        }
+        }*/
 
         /*
         heapsort<int>(arr, 1000);
@@ -97,7 +108,7 @@ int main(int argc, char** argv)
             }
         }
         cout << endl;*/
-
+/*
         BinTreeST<string, int> binTreeST;
         binTreeST.put("Skornyakov", 14);
         binTreeST.put("Abramov", 12);
@@ -114,7 +125,7 @@ int main(int argc, char** argv)
         binTreeST.remove("Skornyakov");
         bstSize = binTreeST.size();
         binTreeST.remove("Aaskold");
-        bstSize = binTreeST.size();
+        bstSize = binTreeST.size();*/
 
         /*
         for(int i = 0; i < 1000; i++){
@@ -124,7 +135,7 @@ int main(int argc, char** argv)
             newStr.insert(newStr.end(), (char)(rand()%93+33));
             binTreeST.put(newStr, rand()%101);
         }*/
-
+/*
 
         int val = binTreeST.get("Skornyakov");
         std::string searchitem("Azotov");
@@ -187,6 +198,7 @@ int main(int argc, char** argv)
 
         cout << endl;
     }
+    */
     /*
     // Mergesort
     cout << "Mergesort" << endl;
@@ -233,7 +245,7 @@ int main(int argc, char** argv)
     }
     cout << endl;
     */
-
+/*
     // array Q implementation
     array_impl_q::Queue<int> arrayQ;
     int itemsCount = 100;
@@ -258,7 +270,7 @@ int main(int argc, char** argv)
     }
 
 
-    /*
+    
     // linked list Q implementation
     linklist_q::Queue<int> linkedListQ;
     unsigned int itemsCount = 1500000;

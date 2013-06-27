@@ -26,6 +26,7 @@ private:
     static const int M = 1024;
     HTNode<K, V>* remove(HTNode<K, V>* node, const K& key);
     HTNode<K, V>** hashTable;
+    unsigned int itemsCount;
 public:
     HashTableST();
     virtual ~HashTableST();
@@ -38,17 +39,18 @@ public:
 };
 
 template <typename K, typename V> HashTableST<K, V>::HashTableST()
-    :hashTable(new HTNode<K, V>*[M]())
+    :hashTable(new HTNode<K, V>*[M]()),
+     itemsCount(0)
 {
 
 }
 
 template <typename K, typename V>bool HashTableST<K, V>::isEmpty(){
-    return false;
+    return 0 == this->itemsCount;
 }
 
 template <typename K, typename V>int HashTableST<K, V>::size(){
-    return 0;
+    return itemsCount;
 }
 
 template <typename K, typename V>bool HashTableST<K, V>::contains(K key){
@@ -62,6 +64,7 @@ template <typename K, typename V>HTNode<K, V>* HashTableST<K, V>::remove(HTNode<
     if(node->key == key){
         HTNode<K, V> copyNode(*node);
         delete node;
+        --(this->itemsCount);
         return copyNode.next;
     }
 
@@ -88,7 +91,8 @@ template <typename K, typename V>void HashTableST<K, V>::put(const K key, const 
             }
             nodePtr = &((*nodePtr)->next);
         }      
-        *nodePtr = new HTNode<K, V>(key ,val);        
+        *nodePtr = new HTNode<K, V>(key ,val);  
+        ++(this->itemsCount);
 }
 
 template <typename K, typename V>V HashTableST<K, V>::get(K key){
@@ -106,5 +110,14 @@ template <typename K, typename V>V HashTableST<K, V>::get(K key){
 }
 
 template <typename K, typename V>HashTableST<K, V>::~HashTableST(){
+    
+    
+    for(unsigned int i = 0; i < M; i++){ 
+        HTNode<K, V>* next = NULL;
+        for(HTNode<K, V>* nodePtr = hashTable[i]; NULL != nodePtr; nodePtr = next){
+            delete nodePtr;
+        }
+    }
 
+    delete[] hashTable;
 }
