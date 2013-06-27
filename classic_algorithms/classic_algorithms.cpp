@@ -23,6 +23,7 @@
 #include "bin_heap_impl_priority_q.h"
 #include "heapsort.h"
 #include "red_black_tree_st.h"
+#include "hash_table_st.h"
 #include <string>
 
 
@@ -50,6 +51,18 @@ int _tmain(int argc, _TCHAR* argv[])
 int main(int argc, char** argv)
 #endif
 {
+    HashTableST<std::string, int> myHahTableST;
+    myHahTableST.put("Skornyakov", 2);
+    myHahTableST.put("Skornyakov", 3);
+    myHahTableST.put("Abramov", 3);
+    myHahTableST.put("Losev", 4);
+    myHahTableST.put("Utin", 5);
+
+    int val = 0;
+    val = myHahTableST.get("Utin");
+    myHahTableST.remove("Skornyakov");
+
+
 
     RBTreeST<std::string, int> phoneNumbers;
     phoneNumbers.put("Skornyakov", 2);
@@ -57,6 +70,8 @@ int main(int argc, char** argv)
     phoneNumbers.put("Losev", 4);
     phoneNumbers.put("Utin", 5);
 
+    bool test = phoneNumbers.contains("Pukin");    
+    test = phoneNumbers.contains("Utin");    
 
     
     while(1){

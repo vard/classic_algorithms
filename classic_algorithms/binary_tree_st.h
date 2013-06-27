@@ -177,7 +177,7 @@ template <typename K, typename V>V BinTreeST<K, V>::max() {
 }
 
 template <typename K, typename V>bool BinTreeST<K, V>::contains(K key) {
-    return NULL;
+    return (NULL != get(key));
 }
 
 template <typename K, typename V>TreeNode<K, V>* BinTreeST<K, V>::remove(TreeNode<K, V>* node, const K& key) {

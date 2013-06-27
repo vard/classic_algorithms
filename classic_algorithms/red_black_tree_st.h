@@ -67,7 +67,7 @@ template <typename K, typename V>RBTreeST<K, V>::RBTreeST()
 }
 
 template <typename K, typename V>bool RBTreeST<K, V>::contains(K key) {
-    return false;
+    return (NULL != get(key));
 }
 
 template <typename K, typename V>void RBTreeST<K, V>::remove(K key) {
@@ -95,6 +95,8 @@ template <typename K, typename V>RBTreeNode<K, V>* RBTreeST<K, V>::put(RBTreeNod
     if (key < node->key) node->left = put(node->left, key, val);
     else if (key > node->key) node->right = put(node->right, key, val);
     else node->value = val;
+
+    node->count = size(node->left) + size(node->right)+1;
 
     if (isRed(node->right) && !isRed(node->left))
         node = rotateLeft(node);
@@ -124,8 +126,8 @@ template <typename K, typename V > RBTreeNode<K, V>* RBTreeST<K, V>::rotateLeft(
     node->color = RED;
     auxNodePtr->left = node;
     auxNodePtr->color = BLACK;
-    node->count = node->right->count + node->left->count + 1;
-    auxNodePtr->count = auxNodePtr->right->count + auxNodePtr->left->count + 1;
+    node->count = size(node->right) + size(node->left) + 1;
+    auxNodePtr->count = size(auxNodePtr->right) + size(auxNodePtr->left) + 1;
     return auxNodePtr;
 }
 
@@ -135,8 +137,8 @@ template <typename K, typename V > RBTreeNode<K, V>* RBTreeST<K, V>::rotateRight
     node->color = RED;
     auxNodePtr->right = node;
     auxNodePtr->color = BLACK;
-    node->count = node->right->count + node->left->count + 1;
-    auxNodePtr->count = auxNodePtr->right->count + auxNodePtr->left->count + 1;
+    node->count = size(node->right) + size(node->left) + 1;
+    auxNodePtr->count = size(auxNodePtr->right) + size(auxNodePtr->left)+ 1;
     return auxNodePtr;
 }
 
