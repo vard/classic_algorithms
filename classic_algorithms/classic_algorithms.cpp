@@ -45,12 +45,9 @@ int compare (const void * a, const void * b)
 int _tmain(int argc, _TCHAR* argv[])
 #endif
 
-
 #ifdef _WIN32
 int _tmain(int argc, _TCHAR* argv[])
 #endif
-
-
 
 #ifdef __linux__
 int main(int argc, char** argv)
