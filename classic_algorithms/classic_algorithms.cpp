@@ -24,6 +24,7 @@
 #include "heapsort.h"
 #include "red_black_tree_st.h"
 #include "hash_table_st.h"
+#include <boost/algorithm/string/replace.hpp>
 #include <string>
 
 
@@ -39,18 +40,47 @@ int compare (const void * a, const void * b)
     return ( *(int*)a - *(int*)b );
 }
 
+
 #ifdef _WIN64
 int _tmain(int argc, _TCHAR* argv[])
 #endif
+
 
 #ifdef _WIN32
 int _tmain(int argc, _TCHAR* argv[])
 #endif
 
+
+
 #ifdef __linux__
 int main(int argc, char** argv)
 #endif
 {
+    HashTableLpST<std::string, int> myHashTableLpST;
+    if(myHashTableLpST.isEmpty())
+        std::cout << "Hash table(linear probing) is empty";
+    else
+        std:: cout << "Hash table(linear probing) is not empty";
+    std::cout << endl;
+
+    myHashTableLpST.put("Skornyakov", 2);
+    myHashTableLpST.put("Skornyakov", 3);
+    myHashTableLpST.put("Abramov", 3);
+    myHashTableLpST.put("Losev", 4);
+    myHashTableLpST.put("Utin", 5);
+
+    int val = 0;
+    val = myHashTableLpST.get("Utin");
+    myHashTableLpST.remove("Skornyakov");
+
+    if(myHashTableLpST.isEmpty())
+        std::cout << "Hash table is empty";
+    else
+        std:: cout << "Hash table is not empty";
+    std::cout << endl;
+
+
+    
     HashTableST<std::string, int> myHahTableST;
     if(myHahTableST.isEmpty())
         std::cout << "Hash table is empty";
@@ -64,7 +94,7 @@ int main(int argc, char** argv)
     myHahTableST.put("Losev", 4);
     myHahTableST.put("Utin", 5);
 
-    int val = 0;
+    //int val = 0;
     val = myHahTableST.get("Utin");
     myHahTableST.remove("Skornyakov");
 
