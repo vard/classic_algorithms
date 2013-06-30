@@ -35,6 +35,7 @@ int main(int argc, char** argv)
             cout << vertex <<  " - " << *iter << endl;
     }
 
+    // use dfs to find all paths from 0
     std::cout << "DFS results:" << std::endl;
     unsigned int source = 0;
     graph::DepthFirstSearchPaths paths(socialNetFriends, source);
@@ -48,9 +49,9 @@ int main(int argc, char** argv)
             }
             std::cout << std::endl;
         }
-
     }
 
+    // use dfs to find all paths from 0
     std::cout << "BFS results:" << std::endl;
     unsigned int bfsSource = 0;
     graph::BreadthFirstSearchPaths bfsPaths(socialNetFriends, bfsSource);
@@ -64,11 +65,7 @@ int main(int argc, char** argv)
             }
             std::cout << std::endl;
         }
-
     }
-
-
-
 
 	return 0;
 }

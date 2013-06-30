@@ -136,6 +136,23 @@ namespace graph {
     BreadthFirstSearchPaths::~BreadthFirstSearchPaths() {
 
     }
+    
+    CC::CC(const Graph& graph){
+        marked = boost::shared_ptr<bool[]>(new bool[graph.vertices()]());
+        id = boost::shared_ptr<unsigned int[]>(new unsigned int[graph.vertices()]);
+    }
+    
+    void CC::dfs(const Graph& graph, unsigned int vertex){
+        
+    }
+    
+    unsigned int CC::getCount(){
+        return count;
+    }
+    
+    unsigned int CC::getId(unsigned int vertex){
+        return id[vertex];
+    }
 
 }
 

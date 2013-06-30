@@ -12,12 +12,13 @@
 #include "graphs/graph.h"
 using namespace std;
 
-namespace graph{
-    class Graph{
+namespace graph {
+
+    class Graph {
     private:
         unsigned int vertexCount;
-        boost::shared_ptr<std::set<int>[]> adj;
-           
+        boost::shared_ptr<std::set<int>[] > adj;
+
     public:
         Graph(unsigned int vertices);
         Graph(std::ifstream& inputStream);
@@ -27,38 +28,50 @@ namespace graph{
         std::vector<int> adjacent(int vertex) const;
     };
 
-   class PathsInterface{
-   public:       
-       virtual bool hasPathTo(unsigned int vertex) = 0;
-       virtual bool pathTo(unsigned int vertex, std::deque<int>& path) = 0;
-       virtual ~PathsInterface();
-   };
+    class PathsInterface {
+    public:
+        virtual bool hasPathTo(unsigned int vertex) = 0;
+        virtual bool pathTo(unsigned int vertex, std::deque<int>& path) = 0;
+        virtual ~PathsInterface();
+    };
 
-   class DepthFirstSearchPaths : public PathsInterface{
-   private:
-       boost::shared_ptr<bool[]> marked;
-       boost::shared_ptr<int[]> edgeTo;
-       unsigned int source;
-       void dfs(const Graph& graph, unsigned int vertex);
-   public:
-       virtual bool hasPathTo(unsigned int vertex);
-       virtual bool pathTo(unsigned int vertex, std::deque<int>& path);
-       DepthFirstSearchPaths(const Graph& graph, unsigned int sourceVertex);
-       virtual ~DepthFirstSearchPaths();
-   };
+    class DepthFirstSearchPaths : public PathsInterface {
+    private:
+        boost::shared_ptr<bool[] > marked;
+        boost::shared_ptr<int[] > edgeTo;
+        unsigned int source;
+        void dfs(const Graph& graph, unsigned int vertex);
+    public:
+        virtual bool hasPathTo(unsigned int vertex);
+        virtual bool pathTo(unsigned int vertex, std::deque<int>& path);
+        DepthFirstSearchPaths(const Graph& graph, unsigned int sourceVertex);
+        virtual ~DepthFirstSearchPaths();
+    };
 
-   class BreadthFirstSearchPaths : public PathsInterface{
-   private:
-       boost::shared_ptr<bool[]> marked;
-       boost::shared_ptr<int[]> edgeTo;
-       unsigned int source;
-       void bfs(const Graph& graph, unsigned int vertex);
-   public:
-       virtual bool hasPathTo(unsigned int vertex);
-       virtual bool pathTo(unsigned int vertex, std::deque<int>& path);
-       BreadthFirstSearchPaths(const Graph& graph, unsigned int sourceVertex);
-       virtual ~BreadthFirstSearchPaths();
-   };
+    class BreadthFirstSearchPaths : public PathsInterface {
+    private:
+        boost::shared_ptr<bool[] > marked;
+        boost::shared_ptr<int[] > edgeTo;
+        unsigned int source;
+        void bfs(const Graph& graph, unsigned int vertex);
+    public:
+        virtual bool hasPathTo(unsigned int vertex);
+        virtual bool pathTo(unsigned int vertex, std::deque<int>& path);
+        BreadthFirstSearchPaths(const Graph& graph, unsigned int sourceVertex);
+        virtual ~BreadthFirstSearchPaths();
+    };
+
+    class CC {
+    private:
+        boost::shared_ptr<bool[] > marked;
+        boost::shared_ptr<unsigned int[] > id;
+        unsigned int count;
+        void dfs(const Graph& graph, unsigned int vertex);
+    public:
+        CC(const Graph& graph);
+        unsigned int getCount();
+        unsigned int getId(unsigned int vertex);
+    };
 }
 
 #endif
