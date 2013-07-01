@@ -7,10 +7,12 @@
 #endif
 
 #include "graphs/graph.h"
+#include "graphs/digraph.h"
 #include <iostream>
 #include <fstream>
 
 using namespace graph;
+using namespace digraph;
 using namespace std;
 
 #ifdef _WIN64
@@ -84,8 +86,27 @@ int main(int argc, char** argv)
     for(unsigned int v = 0; v < socialNetFriends.vertices(); v++){
         std::cout << connectedComponents.getId(v) << " ";
     }
+
+    std::cout << std::endl;
+    std::cout << std::endl;
     std::cout << std::endl;
 
+    std::ifstream digraphFile;
+    try{
+        digraphFile.open("digraph.txt", std::ifstream::in);
+    } catch(std::ifstream::failure e){
+        std::cerr << "Exception opening file\n";
+    }
+
+    std::cout << "Directed graph:" << std::endl;
+    digraph::Digraph regionMap(digraphFile);
+    for(uint32_t v = 0; v < regionMap.vertices(); v++){
+        std::set<uint32_t> adj = regionMap.adjacent(v);
+        for(std::set<uint32_t>::iterator iter = adj.begin(); iter != adj.end(); ++iter){
+            std::cout << v << " -> " << *iter << std::endl;
+        }
+    }
+    
 
     return 0;
 }
