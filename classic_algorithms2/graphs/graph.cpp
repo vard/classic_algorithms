@@ -137,12 +137,29 @@ namespace graph {
 
     }
     
-    CC::CC(const Graph& graph){
+    CC::CC(const Graph& graph)
+    :count(0){
         marked = boost::shared_ptr<bool[]>(new bool[graph.vertices()]());
         id = boost::shared_ptr<unsigned int[]>(new unsigned int[graph.vertices()]);
+
+        for(unsigned int v = 0; v < graph.vertices(); v++){
+            if(!marked[v]){
+                dfs(graph, v);
+                count++;
+            }
+        }
     }
     
     void CC::dfs(const Graph& graph, unsigned int vertex){
+        id[vertex] = count;
+        marked[vertex] = true;
+        std::vector<int> adjVertex = graph.adjacent(vertex);
+        for(std::vector<int>::iterator iter = adjVertex.begin(); iter != adjVertex.end(); ++iter){
+            if(!marked[*iter]){                
+                marked[*iter] = true;
+                dfs(graph, *iter);
+            }
+        }
         
     }
     

@@ -27,7 +27,11 @@ int main(int argc, char** argv)
 
 {
     std::ifstream vertexFile;
-    vertexFile.open("vertexes.txt", std::ifstream::in);
+    try{
+        vertexFile.open("vertexes.txt", std::ifstream::in);
+    } catch(std::ifstream::failure e){
+        std::cerr << "Exception opening file\n";
+    }
     graph::Graph socialNetFriends(vertexFile);
     for(unsigned int vertex = 0; vertex < socialNetFriends.vertices(); vertex++){
         std::vector<int> adjacent = socialNetFriends.adjacent(vertex);
@@ -67,6 +71,22 @@ int main(int argc, char** argv)
         }
     }
 
-	return 0;
+    std::cout << "Connected components results:" << std::endl;
+    graph::CC connectedComponents(socialNetFriends);
+    std::cout.width(12);
+    std::cout << "Vertex: ";
+    for(unsigned int v = 0; v < socialNetFriends.vertices(); v++){
+        std::cout << v << " ";
+    }
+    std::cout << std::endl;
+    std::cout.width(12);
+    std::cout << "Component: ";
+    for(unsigned int v = 0; v < socialNetFriends.vertices(); v++){
+        std::cout << connectedComponents.getId(v) << " ";
+    }
+    std::cout << std::endl;
+
+
+    return 0;
 }
 
