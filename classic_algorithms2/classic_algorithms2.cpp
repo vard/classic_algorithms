@@ -98,6 +98,7 @@ int main(int argc, char** argv)
         std::cerr << "Exception opening file\n";
     }
 
+    // Directed graph
     std::cout << "Directed graph:" << std::endl;
     digraph::Digraph regionMap(digraphFile);
     for(uint32_t v = 0; v < regionMap.vertices(); v++){
@@ -105,6 +106,22 @@ int main(int argc, char** argv)
         for(std::set<uint32_t>::iterator iter = adj.begin(); iter != adj.end(); ++iter){
             std::cout << v << " -> " << *iter << std::endl;
         }
+    }
+
+    // DFS
+    digraph::DigraphDFSPaths routes(regionMap, 0);
+    for(uint32_t v = 0; v < regionMap.vertices(); v++){
+        if(routes.hasPathTo(v)){
+            std::deque<int> routeFound;
+            routes.pathTo(v , routeFound);
+            std::cout << "Path to " << v << ":";
+            for(std::deque<int>::iterator iter = routeFound.begin(); iter != routeFound.end(); ++iter){
+                std::cout << " " << *iter;
+            }
+            std::cout << std::endl;
+
+        }
+
     }
     
 

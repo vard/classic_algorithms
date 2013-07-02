@@ -4,8 +4,10 @@
 #include <fstream>
 #include <vector>
 #include <set>
+#include <deque>
 #include "boost/cstdint.hpp"
 #include "boost/shared_ptr.hpp"
+#include "graphs/graph.h"
 
 using namespace std;
 using namespace boost;
@@ -27,5 +29,19 @@ namespace digraph{
         Digraph reverse();
 
     };
+
+    
+    class DigraphDFSPaths : public graph::PathsInterface{
+    private:
+        boost::shared_ptr<uint32_t []> edgeTo;
+        boost::shared_ptr<bool[]> marked;
+        void dfs(const Digraph& digraph, uint32_t vertex);
+        uint32_t vertexCount;
+        uint32_t dfsSource;
+    public:
+        DigraphDFSPaths(const Digraph& digraph, uint32_t source);
+        virtual bool hasPathTo(unsigned int vertex);
+        virtual bool pathTo(unsigned int vertex, std::deque<int>& path);
+     };
 
 }
