@@ -84,7 +84,7 @@ namespace digraph{
             uint32_t vertex = vertexQ.front();
             vertexQ.pop_front();
 
-            
+
             std::set<uint32_t> adjacent = graph.adjacent(vertex);
             for(std::set<uint32_t>::iterator iter = adjacent.begin(); iter != adjacent.end(); ++iter){
                 if(!marked[*iter]){
@@ -111,6 +111,33 @@ namespace digraph{
         }
         path.push_front(bfsSource);
         return true;
+    }
+
+    DepthFirstOrder::DepthFirstOrder(const Digraph &graph)
+        :marked(new bool[graph.vertices()]()),
+        reversePostOrder(new std::deque<uint32_t>){
+            uint32_t vertexes = graph.vertices();
+            for(uint32_t v = 0; v < vertexes; ++v){
+                if(!marked[v]){
+                    dfs(graph, v);
+                }
+            }
+    }
+
+    void DepthFirstOrder::dfs(const digraph::Digraph &graph, boost::uint32_t vertex){
+        marked[vertex] = true;
+        std::set<uint32_t> adjacent = graph.adjacent(vertex);
+        for(std::set<uint32_t>::iterator iter = adjacent.begin(); iter != adjacent.end(); ++iter){
+            if(!marked[*iter]){
+                dfs(graph, *iter);    
+            }
+        }        
+        (*reversePostOrder).push_front(vertex); 
+    }
+
+    std::deque<uint32_t> DepthFirstOrder::reversePost() const{
+        return *reversePostOrder;
+
     }
 
 

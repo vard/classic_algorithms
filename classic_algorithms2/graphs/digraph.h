@@ -62,11 +62,11 @@ namespace digraph{
     class DepthFirstOrder{
     private:
         boost::shared_ptr<bool[]> marked;
-        std::stack<uint32_t> reversePost;
+        boost::shared_ptr<std::deque<uint32_t> > reversePostOrder;
         void dfs(const Digraph& graph, uint32_t vertex);
     public:
         DepthFirstOrder(const Digraph& graph);
-        bool reversePost(std::deque<uint32_t>& vertexes);
+        std::deque<uint32_t> reversePost() const;
     };
 
 }

@@ -137,10 +137,18 @@ int main(int argc, char** argv)
                 std::cout << " " << *iter;
             }
             std::cout << std::endl;
-
         }
-
     }
+
+    // Topological order
+    std::cout << "Topological order\n";
+    digraph::DepthFirstOrder topologicalSort(regionMap);
+    std::deque<uint32_t> routeTraversal = topologicalSort.reversePost();
+    for(std::deque<uint32_t>::iterator iter = routeTraversal.begin(); iter != routeTraversal.end(); ++iter){
+        std::cout << *iter << " -> ";
+    }
+    std::cout << std::endl;
+
     
 
     return 0;
