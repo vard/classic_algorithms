@@ -109,11 +109,29 @@ int main(int argc, char** argv)
     }
 
     // DFS
+    std::cout << "DFS:\n";
     digraph::DigraphDFSPaths routes(regionMap, 0);
     for(uint32_t v = 0; v < regionMap.vertices(); v++){
         if(routes.hasPathTo(v)){
             std::deque<int> routeFound;
             routes.pathTo(v , routeFound);
+            std::cout << "Path to " << v << ":";
+            for(std::deque<int>::iterator iter = routeFound.begin(); iter != routeFound.end(); ++iter){
+                std::cout << " " << *iter;
+            }
+            std::cout << std::endl;
+
+        }
+
+    }
+
+    // BFS
+    std::cout << "BFS:\n";
+    digraph::DigraphBFSPaths bfsRoutes(regionMap, 0);
+    for(uint32_t v = 0; v < regionMap.vertices(); v++){
+        if(bfsRoutes.hasPathTo(v)){
+            std::deque<int> routeFound;
+            bfsRoutes.pathTo(v , routeFound);
             std::cout << "Path to " << v << ":";
             for(std::deque<int>::iterator iter = routeFound.begin(); iter != routeFound.end(); ++iter){
                 std::cout << " " << *iter;

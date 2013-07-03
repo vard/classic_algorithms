@@ -5,6 +5,7 @@
 #include <vector>
 #include <set>
 #include <deque>
+#include <stack>
 #include "boost/cstdint.hpp"
 #include "boost/shared_ptr.hpp"
 #include "graphs/graph.h"
@@ -43,5 +44,29 @@ namespace digraph{
         virtual bool hasPathTo(unsigned int vertex);
         virtual bool pathTo(unsigned int vertex, std::deque<int>& path);
      };
+
+    class DigraphBFSPaths : public graph::PathsInterface{
+    private:
+        boost::shared_ptr<bool []> marked;
+        boost::shared_ptr<uint32_t[]> edgeTo;
+        uint32_t vertexCount;
+        uint32_t bfsSource;
+        void bfs(const Digraph& graph, uint32_t source);
+    public:
+        DigraphBFSPaths(const Digraph& graph, uint32_t source);
+        virtual bool hasPathTo(unsigned int vertex);
+        virtual bool pathTo(unsigned int vertex, std::deque<int>& path);
+    };
+
+    // topological order
+    class DepthFirstOrder{
+    private:
+        boost::shared_ptr<bool[]> marked;
+        std::stack<uint32_t> reversePost;
+        void dfs(const Digraph& graph, uint32_t vertex);
+    public:
+        DepthFirstOrder(const Digraph& graph);
+        bool reversePost(std::deque<uint32_t>& vertexes);
+    };
 
 }
