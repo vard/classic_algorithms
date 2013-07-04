@@ -7,10 +7,12 @@
 #endif
 
 #include "graphs/graph.h"
+#include "graphs/digraph.h"
 #include <iostream>
 #include <fstream>
 
 using namespace graph;
+using namespace digraph;
 using namespace std;
 
 #ifdef _WIN64
@@ -84,8 +86,85 @@ int main(int argc, char** argv)
     for(unsigned int v = 0; v < socialNetFriends.vertices(); v++){
         std::cout << connectedComponents.getId(v) << " ";
     }
+
+    std::cout << std::endl;
+    std::cout << std::endl;
     std::cout << std::endl;
 
+    std::ifstream digraphFile;
+    try{
+        digraphFile.open("digraph.txt", std::ifstream::in);
+    } catch(std::ifstream::failure e){
+        std::cerr << "Exception opening file\n";
+    }
+
+    // Directed graph
+    std::cout << "Directed graph:" << std::endl;
+    digraph::Digraph regionMap(digraphFile);
+    for(uint32_t v = 0; v < regionMap.vertices(); v++){
+        std::set<uint32_t> adj = regionMap.adjacent(v);
+        for(std::set<uint32_t>::iterator iter = adj.begin(); iter != adj.end(); ++iter){
+            std::cout << v << " -> " << *iter << std::endl;
+        }
+    }
+
+    // DFS
+    std::cout << "DFS:\n";
+    digraph::DigraphDFSPaths routes(regionMap, 0);
+    for(uint32_t v = 0; v < regionMap.vertices(); v++){
+        if(routes.hasPathTo(v)){
+            std::deque<int> routeFound;
+            routes.pathTo(v , routeFound);
+            std::cout << "Path to " << v << ":";
+            for(std::deque<int>::iterator iter = routeFound.begin(); iter != routeFound.end(); ++iter){
+                std::cout << " " << *iter;
+            }
+            std::cout << std::endl;
+
+        }
+
+    }
+
+    // BFS
+    std::cout << "BFS:\n";
+    digraph::DigraphBFSPaths bfsRoutes(regionMap, 0);
+    for(uint32_t v = 0; v < regionMap.vertices(); v++){
+        if(bfsRoutes.hasPathTo(v)){
+            std::deque<int> routeFound;
+            bfsRoutes.pathTo(v , routeFound);
+            std::cout << "Path to " << v << ":";
+            for(std::deque<int>::iterator iter = routeFound.begin(); iter != routeFound.end(); ++iter){
+                std::cout << " " << *iter;
+            }
+            std::cout << std::endl;
+        }
+    }
+
+    // Topological order
+    std::cout << "Topological order\n";
+    digraph::DepthFirstOrder topologicalSort(regionMap);
+    std::deque<uint32_t> routeTraversal = topologicalSort.reversePost();
+    for(std::deque<uint32_t>::iterator iter = routeTraversal.begin(); iter != routeTraversal.end(); ++iter){
+        std::cout << *iter << " -> ";
+    }
+    std::cout << std::endl;
+
+    // Strong connected components
+    std::cout << "Strong CC:\n";
+    digraph::KosarajuSharirSCC strongComponents(regionMap);
+    std::cout.width(12);
+    std::cout << "Vertex: ";
+    for(unsigned int v = 0; v < regionMap.vertices(); v++){
+        std::cout << v << " ";
+    }
+    std::cout << std::endl;
+    std::cout.width(12);
+    std::cout << "Component: ";
+    for(unsigned int v = 0; v < regionMap.vertices(); v++){
+        std::cout << strongComponents.getId(v) << " ";
+    }
+
+    
 
     return 0;
 }
