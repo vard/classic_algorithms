@@ -149,6 +149,21 @@ int main(int argc, char** argv)
     }
     std::cout << std::endl;
 
+    // Strong connected components
+    std::cout << "Strong CC:\n";
+    digraph::KosarajuSharirSCC strongComponents(regionMap);
+    std::cout.width(12);
+    std::cout << "Vertex: ";
+    for(unsigned int v = 0; v < regionMap.vertices(); v++){
+        std::cout << v << " ";
+    }
+    std::cout << std::endl;
+    std::cout.width(12);
+    std::cout << "Component: ";
+    for(unsigned int v = 0; v < regionMap.vertices(); v++){
+        std::cout << strongComponents.getId(v) << " ";
+    }
+
     
 
     return 0;

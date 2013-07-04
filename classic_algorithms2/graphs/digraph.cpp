@@ -30,16 +30,17 @@ namespace digraph{
         return adjacencyList[vertex];
     }
 
-    Digraph Digraph::reverse(){
+    Digraph Digraph::reverse() const{
         Digraph reversedDigraph(vertexCount);
         for(uint32_t v = 0; v < vertexCount; v++){
-            std::set<uint32_t> adj = reversedDigraph.adjacent(v);
+            std::set<uint32_t> adj = adjacent(v);
             for(std::set<uint32_t>::iterator iter = adj.begin(); iter != adj.end(); ++iter){
                 reversedDigraph.addEdge(*iter, v);
             }
-            //std::for_each(adj.begin(), adj.end(), reversedDigraph.addEdge(                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        
         }
-    return reversedDigraph;
+        std::cout << "Graph reversion result:\n";
+        digraph::printGraph(reversedDigraph);
+        return reversedDigraph;
     }
 
     DigraphDFSPaths::DigraphDFSPaths(const Digraph &digraph, boost::uint32_t source){
@@ -152,5 +153,45 @@ namespace digraph{
 
     }
 
+    KosarajuSharirSCC::KosarajuSharirSCC(const Digraph &graph)
+        :marked(new bool[graph.vertices()]()),
+        id(new int[graph.vertices()]),
+        count(0),
+        vertexCount(graph.vertices()){
+            Digraph reversedG = graph.reverse();
+            std::cout << "Reversed graph:\n";
+            digraph::printGraph(reversedG);
+            DepthFirstOrder depthFirstOrder(graph.reverse());
+            std::deque<uint32_t>reversed = depthFirstOrder.reversePost();
+            for(std::deque<uint32_t>::iterator iter = reversed.begin(); iter != reversed.end(); ++iter){
+                dfs(graph, *iter);
+                count++;
+            }
+    }
 
+    void KosarajuSharirSCC::dfs(const digraph::Digraph &graph, boost::uint32_t vertex){
+        marked[vertex] = true;
+        std::set<uint32_t> adjacent = graph.adjacent(vertex);
+        for(std::set<uint32_t>::iterator iter = adjacent.begin(); iter != adjacent.end(); ++iter){
+            if(!marked[*iter]){
+                id[*iter] = count;
+                dfs(graph, *iter);
+            }
+        }
+
+    }
+
+    uint32_t KosarajuSharirSCC::getId(uint32_t vertex){
+        return id[vertex];
+    }
+
+
+    void printGraph(const Digraph& graph){
+        for(uint32_t v = 0; v < graph.vertices(); ++v){
+            std::set<uint32_t> adj = graph.adjacent(v);
+            for(std::set<uint32_t>::iterator iter = adj.begin(); iter != adj.end(); ++iter){
+                std::cout << v << " -> " << *iter << std::endl;
+            }
+        }
+    }
 }

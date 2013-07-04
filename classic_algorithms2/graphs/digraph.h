@@ -27,7 +27,7 @@ namespace digraph{
         std::set<uint32_t> adjacent(uint32_t vertex) const;
         uint32_t vertices() const;
         uint32_t edges() const;
-        Digraph reverse();
+        Digraph reverse() const;
 
     };
 
@@ -68,5 +68,19 @@ namespace digraph{
         DepthFirstOrder(const Digraph& graph);
         std::deque<uint32_t> reversePost() const;
     };
+
+    class KosarajuSharirSCC{
+    private:
+        boost::shared_ptr<bool[]> marked;
+        boost::shared_ptr<int []> id;
+        uint32_t count;
+        uint32_t vertexCount;
+        void dfs(const Digraph& graph, uint32_t vertex);
+    public:
+        KosarajuSharirSCC(const Digraph& graph);
+        uint32_t getId(uint32_t vertex);
+    };
+
+    void printGraph(const Digraph& graph);
 
 }
