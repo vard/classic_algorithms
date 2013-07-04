@@ -164,17 +164,19 @@ namespace digraph{
             DepthFirstOrder depthFirstOrder(graph.reverse());
             std::deque<uint32_t>reversed = depthFirstOrder.reversePost();
             for(std::deque<uint32_t>::iterator iter = reversed.begin(); iter != reversed.end(); ++iter){
-                dfs(graph, *iter);
-                count++;
+                if(!marked[*iter]){
+                    dfs(graph, *iter);
+                    count++;
+                }
             }
     }
 
     void KosarajuSharirSCC::dfs(const digraph::Digraph &graph, boost::uint32_t vertex){
         marked[vertex] = true;
+        id[vertex] = count;
         std::set<uint32_t> adjacent = graph.adjacent(vertex);
         for(std::set<uint32_t>::iterator iter = adjacent.begin(); iter != adjacent.end(); ++iter){
-            if(!marked[*iter]){
-                id[*iter] = count;
+            if(!marked[*iter]){                
                 dfs(graph, *iter);
             }
         }
