@@ -76,4 +76,49 @@ namespace union_find{
         return outStream;
     }
 
+    uint32_t WeightedQuickUnionUF::root(uint32_t index){
+        uint32_t i = index;
+        while(i != id[i])
+            i = id[i];
+        return i;
+    }
+
+
+    void WeightedQuickUnionUF::unionItems(uint32_t p, uint32_t q){
+        int rootP = root(p);
+        int rootQ = root(q);
+        // link root of smaller tree to root of larger tree
+        if(sz[rootP] < sz[rootQ])
+            id[rootP] = rootQ;
+        else
+            id[rootQ] = rootP;
+
+    }
+
+    WeightedQuickUnionUF::WeightedQuickUnionUF(uint32_t itemsCount)
+        :count(itemsCount),
+        id(new uint32_t[count]),
+        sz(new uint32_t[count]){
+            for(uint32_t i = 0; i < count; ++i){
+                id[i] = i;
+            }
+    }
+
+    bool WeightedQuickUnionUF::connected(boost::uint32_t p, boost::uint32_t q){
+        return root(q)==root(p);
+    }
+
+    std::ostream& operator<<(std::ostream& outStream, const WeightedQuickUnionUF& rhs){
+        outStream << setw(2);
+        for(uint32_t i = 0; i < rhs.count; ++i){
+            outStream << i << " ";
+        }
+        outStream << std::endl;
+        outStream << setw(2);
+        for(uint32_t i = 0; i < rhs.count; ++i){
+            outStream << rhs.id[i] << " ";
+        }
+        return outStream;
+    }
+
 }

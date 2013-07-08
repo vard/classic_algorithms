@@ -71,6 +71,19 @@ int main(int argc, char** argv)
     quickUnion.unionItems(6,8);
     std::cout << "Union-Find QuickUnion:\n" << quickUnion << std::endl;
 
+    union_find::WeightedQuickUnionUF weightedQuickUnion(20);
+    weightedQuickUnion.unionItems(0,1);
+    weightedQuickUnion.unionItems(0,2);
+    weightedQuickUnion.unionItems(0,3);
+
+    weightedQuickUnion.unionItems(5,6);
+    weightedQuickUnion.unionItems(5,7);
+    weightedQuickUnion.unionItems(6,8);
+    std::cout << "Union-Find Weighted QuickUnion:\n" << weightedQuickUnion << std::endl;
+
+
+
+
     HashTableLpST<std::string, int> myHashTableLpST;
     if(myHashTableLpST.isEmpty())
         std::cout << "Hash table(linear probing) is empty";
