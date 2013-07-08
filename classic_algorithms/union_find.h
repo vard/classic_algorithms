@@ -21,8 +21,17 @@ namespace union_find{
         friend std::ostream& operator<<(std::ostream& outStream, const QuickFindUF& rhs);
     };
 
-    
+    class QuickUnionUF{
+    private:
+        uint32_t count;
+        boost::shared_ptr<uint32_t[]> id;
+        uint32_t root(uint32_t index);
+    public:
+        QuickUnionUF(uint32_t itemsCount);
+        bool connected(uint32_t p, uint32_t q);
+        void unionItems(uint32_t p, uint32_t q);
 
-
+        friend std::ostream& operator<<(std::ostream& outStream, const QuickUnionUF& rhs);
+    };
 
 }
