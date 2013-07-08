@@ -25,6 +25,7 @@ public:
     bool operator<(const Edge& rhs);
     bool operator==(const Edge& rhs);
     bool operator>(const Edge& rhs);
+    friend ostream& operator<<(ostream& outStream, const Edge& edge);
 };
 
 class EdgeWeightedGraph{
@@ -43,6 +44,14 @@ public:
 };
 
 void printWeightedGraph(const EdgeWeightedGraph& graph);
+
+class Mst{
+private:
+public:
+    Mst(const EdgeWeightedGraph& graph);
+    std::deque<uint32_t> edges();
+    double weight();
+};
 
 
 } // namespace mst

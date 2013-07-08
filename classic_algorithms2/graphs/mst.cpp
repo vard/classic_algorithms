@@ -97,8 +97,9 @@ namespace mst{
         uint32_t vertices = graph.getVertexCount();
         std::deque<Edge> allEdges = graph.edges();
         for(std::deque<Edge>::iterator iter = allEdges.begin(); iter != allEdges.end(); ++iter){
-            uint32_t v = (*iter).either();
-            std::cout << setw(2) << v << setw(2) <<" - " << setw(2) << (*iter).other(v) << " " << setw(8) << right << (*iter).getWeight() << std::endl;
+            //uint32_t v = (*iter).either();
+            //std::cout << setw(2) << v << setw(2) <<" - " << setw(2) << (*iter).other(v) << " " << setw(8) << right << (*iter).getWeight() << std::endl;
+            std::cout << *iter << std::endl;
         }
 
 
@@ -111,5 +112,8 @@ namespace mst{
         }*/
     }
 
-
+    ostream& operator<<(ostream& outStream, const Edge& edge){
+        outStream << setw(2) << edge.either() << " - " << setw(2) << edge.other(edge.either()) << " " << setw(8) << edge.weight;
+        return outStream;
+    }
 }

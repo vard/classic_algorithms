@@ -26,7 +26,7 @@
 #include "hash_table_st.h"
 #include <boost/algorithm/string/replace.hpp>
 #include <string>
-
+#include "union_find.h"
 
 using namespace std;
 using namespace linked_list_stack;
@@ -53,6 +53,16 @@ int _tmain(int argc, _TCHAR* argv[])
 int main(int argc, char** argv)
 #endif
 {
+    union_find::QuickFindUF quickFind(15);
+    quickFind.unionItems(0, 1);
+    quickFind.unionItems(0, 2);
+    quickFind.unionItems(0, 3);
+    quickFind.unionItems(4, 2);
+    quickFind.unionItems(6, 2);
+    quickFind.unionItems(3, 5);
+    std::cout << quickFind << std::endl;
+
+
     HashTableLpST<std::string, int> myHashTableLpST;
     if(myHashTableLpST.isEmpty())
         std::cout << "Hash table(linear probing) is empty";
