@@ -78,8 +78,11 @@ namespace union_find{
 
     uint32_t WeightedQuickUnionUF::root(uint32_t index){
         uint32_t i = index;
-        while(i != id[i])
+        while(i != id[i]){
+            // path compression - halving path length
+            id[i] = id[id[i]]; 
             i = id[i];
+        }
         return i;
     }
 
