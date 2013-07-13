@@ -180,7 +180,6 @@ namespace digraph{
                 dfs(graph, *iter);
             }
         }
-
     }
 
     uint32_t KosarajuSharirSCC::getId(uint32_t vertex){

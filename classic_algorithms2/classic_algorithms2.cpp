@@ -8,12 +8,14 @@
 
 #include "graphs/graph.h"
 #include "graphs/digraph.h"
+#include "graphs/mst.h"
 #include <iostream>
 #include <fstream>
 
 using namespace graph;
 using namespace digraph;
 using namespace std;
+using namespace mst;
 
 #ifdef _WIN64
 int _tmain(int argc, _TCHAR* argv[])
@@ -35,6 +37,7 @@ int main(int argc, char** argv)
         std::cerr << "Exception opening file\n";
     }
     graph::Graph socialNetFriends(vertexFile);
+    vertexFile.close();
     for(unsigned int vertex = 0; vertex < socialNetFriends.vertices(); vertex++){
         std::vector<int> adjacent = socialNetFriends.adjacent(vertex);
         for(std::vector<int>::iterator iter = adjacent.begin(); iter != adjacent.end(); iter++)
@@ -101,6 +104,7 @@ int main(int argc, char** argv)
     // Directed graph
     std::cout << "Directed graph:" << std::endl;
     digraph::Digraph regionMap(digraphFile);
+    digraphFile.close();
     for(uint32_t v = 0; v < regionMap.vertices(); v++){
         std::set<uint32_t> adj = regionMap.adjacent(v);
         for(std::set<uint32_t>::iterator iter = adj.begin(); iter != adj.end(); ++iter){
@@ -163,6 +167,20 @@ int main(int argc, char** argv)
     for(unsigned int v = 0; v < regionMap.vertices(); v++){
         std::cout << strongComponents.getId(v) << " ";
     }
+    std::cout << std::endl;
+
+    std::ifstream weightedDigraphFile;
+    try{
+        weightedDigraphFile.open("weighted_digraph.txt", std::ifstream::in);
+    } catch(std::ifstream::failure e){
+        std::cerr << "Exception opening file\n";
+    }
+
+    // Weighted undirected graph
+    std::cout << "Undirected weighted graph:" << std::endl;
+    mst::EdgeWeightedGraph roadMap(weightedDigraphFile);
+    mst::printWeightedGraph(roadMap);
+
 
     
 
