@@ -1,5 +1,6 @@
 #include "graphs/mst.h"
 #include <iomanip>
+#include "boost/lambda/lambda.hpp"
 
 namespace mst{
 
@@ -109,6 +110,17 @@ namespace mst{
 
             }
         }*/
+    }
+    
+    double MST::weight(){
+        std::deque<Edge> edges = this->edges();
+        double weight = 0;
+        
+        //std::for_each(edges.begin(), edges.end(), weight+=boost::lambda::_1);
+        for(std::deque<Edge>::iterator iter = edges.begin(); iter != edges.end(); ++iter){
+            weight+=(*iter).getWeight();            
+        }
+        return weight;
     }
 
 

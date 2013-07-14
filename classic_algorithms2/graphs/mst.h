@@ -44,5 +44,11 @@ public:
 
 void printWeightedGraph(const EdgeWeightedGraph& graph);
 
+class MST{
+public:
+    virtual std::deque<Edge> edges() = 0;
+    double weight();
+};
+
 
 } // namespace mst
