@@ -28,12 +28,14 @@
 #include <string>
 #include "union_find.h"
 
+
 using namespace std;
 using namespace linked_list_stack;
 using namespace array_impl_stack;
 using namespace linklist_q;
 using namespace array_impl_q;
 using namespace selection_sort;
+using namespace union_find;
 
 int compare (const void * a, const void * b)
 {
@@ -54,13 +56,32 @@ int main(int argc, char** argv)
 #endif
 {
     union_find::QuickFindUF quickFind(15);
-    quickFind.unionItems(0, 1);
-    quickFind.unionItems(0, 2);
-    quickFind.unionItems(0, 3);
-    quickFind.unionItems(4, 2);
-    quickFind.unionItems(6, 2);
-    quickFind.unionItems(3, 5);
-    std::cout << quickFind << std::endl;
+
+
+    quickFind.unionItems(0,2);
+    quickFind.unionItems(0,3);
+    quickFind.unionItems(1,5);
+    std::cout << "Union-Find QuickFind:\n" << quickFind << std::endl;
+
+    union_find::QuickUnionUF quickUnion(20);
+    quickUnion.unionItems(0,1);
+    quickUnion.unionItems(0,2);
+    quickUnion.unionItems(0,3);
+
+    quickUnion.unionItems(5,6);
+    quickUnion.unionItems(5,7);
+    quickUnion.unionItems(6,8);
+    std::cout << "Union-Find QuickUnion:\n" << quickUnion << std::endl;
+
+    union_find::WeightedQuickUnionUF weightedQuickUnion(20);
+    weightedQuickUnion.unionItems(0,1);
+    weightedQuickUnion.unionItems(0,2);
+    weightedQuickUnion.unionItems(0,3);
+
+    weightedQuickUnion.unionItems(5,6);
+    weightedQuickUnion.unionItems(5,7);
+    weightedQuickUnion.unionItems(6,8);
+    std::cout << "Union-Find Weighted QuickUnion:\n" << weightedQuickUnion << std::endl;
 
 
     HashTableLpST<std::string, int> myHashTableLpST;
@@ -87,7 +108,7 @@ int main(int argc, char** argv)
     std::cout << endl;
 
 
-    
+
     HashTableST<std::string, int> myHahTableST;
     if(myHahTableST.isEmpty())
         std::cout << "Hash table is empty";
@@ -121,119 +142,119 @@ int main(int argc, char** argv)
     bool test = phoneNumbers.contains("Pukin");    
     test = phoneNumbers.contains("Utin");    
 
-    
-  /*  while(1){
-        MaxPQ<int> maxPQ;
 
-        srand((unsigned int)time(NULL));
-        int arr[1000];
-        for(int i = 0; i < 1000; i++){  
-            arr[i]=rand();
-        }*/
+    /*  while(1){
+    MaxPQ<int> maxPQ;
 
-        /*
-        heapsort<int>(arr, 1000);
+    srand((unsigned int)time(NULL));
+    int arr[1000];
+    for(int i = 0; i < 1000; i++){  
+    arr[i]=rand();
+    }*/
 
-        for(int i = 0; i < 10000; i++){  
-            maxPQ.insert(rand());
-        }
+    /*
+    heapsort<int>(arr, 1000);
 
-        for(int i = 0; i < 10000; i++){  
-            int k;
-            while(maxPQ.delMax(&k)){
-                cout << k << " ";
-            }
-        }
-        cout << endl;*/
-/*
-        BinTreeST<string, int> binTreeST;
-        binTreeST.put("Skornyakov", 14);
-        binTreeST.put("Abramov", 12);
-        binTreeST.put("Aaskold", 12);
-        binTreeST.put("Antonov", 12);
-        binTreeST.put("Ivanov", 12);
-        binTreeST.put("Sidorov", 13);
-        binTreeST.put("Nesterov", 11);
-        binTreeST.put("Nesterenko", 11);
-        binTreeST.put("Kolcov", 11);
-        int bstSize = binTreeST.size();
-        binTreeST.remove("Abramov");
-        bstSize = binTreeST.size();
-        binTreeST.remove("Skornyakov");
-        bstSize = binTreeST.size();
-        binTreeST.remove("Aaskold");
-        bstSize = binTreeST.size();*/
+    for(int i = 0; i < 10000; i++){  
+    maxPQ.insert(rand());
+    }
 
-        /*
-        for(int i = 0; i < 1000; i++){
-            string newStr;
-            newStr.insert(newStr.end(), (char)(rand()%93+33));
-            newStr.insert(newStr.end(), (char)(rand()%93+33));
-            newStr.insert(newStr.end(), (char)(rand()%93+33));
-            binTreeST.put(newStr, rand()%101);
-        }*/
-/*
+    for(int i = 0; i < 10000; i++){  
+    int k;
+    while(maxPQ.delMax(&k)){
+    cout << k << " ";
+    }
+    }
+    cout << endl;*/
+    /*
+    BinTreeST<string, int> binTreeST;
+    binTreeST.put("Skornyakov", 14);
+    binTreeST.put("Abramov", 12);
+    binTreeST.put("Aaskold", 12);
+    binTreeST.put("Antonov", 12);
+    binTreeST.put("Ivanov", 12);
+    binTreeST.put("Sidorov", 13);
+    binTreeST.put("Nesterov", 11);
+    binTreeST.put("Nesterenko", 11);
+    binTreeST.put("Kolcov", 11);
+    int bstSize = binTreeST.size();
+    binTreeST.remove("Abramov");
+    bstSize = binTreeST.size();
+    binTreeST.remove("Skornyakov");
+    bstSize = binTreeST.size();
+    binTreeST.remove("Aaskold");
+    bstSize = binTreeST.size();*/
 
-        int val = binTreeST.get("Skornyakov");
-        std::string searchitem("Azotov");
-        string floorVal = binTreeST.floor(searchitem);
-        string ceilingVal = binTreeST.ceiling(searchitem);
-        std::cout << "floor(" << searchitem <<") = " << floorVal << endl;
-        std::cout << "ceiling(" << searchitem <<") = " << ceilingVal << endl;
-        std::cout << "rank(" << searchitem <<") = " << binTreeST.rank(searchitem) << endl;
+    /*
+    for(int i = 0; i < 1000; i++){
+    string newStr;
+    newStr.insert(newStr.end(), (char)(rand()%93+33));
+    newStr.insert(newStr.end(), (char)(rand()%93+33));
+    newStr.insert(newStr.end(), (char)(rand()%93+33));
+    binTreeST.put(newStr, rand()%101);
+    }*/
+    /*
+
+    int val = binTreeST.get("Skornyakov");
+    std::string searchitem("Azotov");
+    string floorVal = binTreeST.floor(searchitem);
+    string ceilingVal = binTreeST.ceiling(searchitem);
+    std::cout << "floor(" << searchitem <<") = " << floorVal << endl;
+    std::cout << "ceiling(" << searchitem <<") = " << ceilingVal << endl;
+    std::cout << "rank(" << searchitem <<") = " << binTreeST.rank(searchitem) << endl;
 
 
 
-        BinSearchST<string, int> binarySearchST;
-        binarySearchST.put("���������", 14);
-        binarySearchST.put("���������", 12);
-        binarySearchST.put("�������", 13);
-        binarySearchST.put("����a", 11);
-        binarySearchST.put("���������", 11);
-        binarySearchST.put("���������a", 11);
-        binarySearchST.remove("���������a");
-        
+    BinSearchST<string, int> binarySearchST;
+    binarySearchST.put("���������", 14);
+    binarySearchST.put("���������", 12);
+    binarySearchST.put("�������", 13);
+    binarySearchST.put("����a", 11);
+    binarySearchST.put("���������", 11);
+    binarySearchST.put("���������a", 11);
+    binarySearchST.remove("���������a");
 
-        for(int i = 0; i < 1000; i++){
-            string newStr;
-            newStr.insert(newStr.end(), (char)(rand()%93+33));
-            newStr.insert(newStr.end(), (char)(rand()%93+33));
-            newStr.insert(newStr.end(), (char)(rand()%93+33));
-            binarySearchST.put(newStr, rand()%101);
-        }
 
-        val = binarySearchST.get("���������");
-        val = binarySearchST.get("���������");
-        val = binarySearchST.get("���������a");
-        val = binarySearchST.get("���������");
+    for(int i = 0; i < 1000; i++){
+    string newStr;
+    newStr.insert(newStr.end(), (char)(rand()%93+33));
+    newStr.insert(newStr.end(), (char)(rand()%93+33));
+    newStr.insert(newStr.end(), (char)(rand()%93+33));
+    binarySearchST.put(newStr, rand()%101);
+    }
 
-        vector<int> intVec;
+    val = binarySearchST.get("���������");
+    val = binarySearchST.get("���������");
+    val = binarySearchST.get("���������a");
+    val = binarySearchST.get("���������");
 
-        for(int i = 0; i < 1000000; i++){  
-            intVec.push_back(rand()) ;
-        }
+    vector<int> intVec;
 
-        // Quicksort
-        cout << "Quicksort:" << endl;
-        QuickSort<int> intQuicksort;
-        Mergesort<int> intMergeSort;
+    for(int i = 0; i < 1000000; i++){  
+    intVec.push_back(rand()) ;
+    }
 
-        time_t before, after;
-        time(&before);
+    // Quicksort
+    cout << "Quicksort:" << endl;
+    QuickSort<int> intQuicksort;
+    Mergesort<int> intMergeSort;
 
-        //qsort(&intVec[0], intVec.size(), sizeof(int), compare);
-        intQuicksort.sort(intVec);
-        //std::sort(intVec.begin(), intVec.end());
-        //intMergeSort.sort(intVec);
-        time(&after);
-        double sec = difftime(after, before);
+    time_t before, after;
+    time(&before);
 
-        if(intQuicksort.isSorted(intVec))
-            cout << "Sorted";
-        else
-            cout << "Not sorted";
+    //qsort(&intVec[0], intVec.size(), sizeof(int), compare);
+    intQuicksort.sort(intVec);
+    //std::sort(intVec.begin(), intVec.end());
+    //intMergeSort.sort(intVec);
+    time(&after);
+    double sec = difftime(after, before);
 
-        cout << endl;
+    if(intQuicksort.isSorted(intVec))
+    cout << "Sorted";
+    else
+    cout << "Not sorted";
+
+    cout << endl;
     }
     */
     /*
@@ -282,32 +303,32 @@ int main(int argc, char** argv)
     }
     cout << endl;
     */
-/*
+    /*
     // array Q implementation
     array_impl_q::Queue<int> arrayQ;
     int itemsCount = 100;
     cout << "Enqueue " << itemsCount << " items" << endl;
     for (int i = 0; i < itemsCount; i++) {
-        arrayQ.enqueue(i);
+    arrayQ.enqueue(i);
     }
 
     itemsCount = 90;
     cout << "Dequeue " << itemsCount << " items" << endl;
     try{
-        for (int i = 0; i < itemsCount; i++) {
-            cout << arrayQ.dequeue() << " ";
-        }
-        cout << endl;
+    for (int i = 0; i < itemsCount; i++) {
+    cout << arrayQ.dequeue() << " ";
+    }
+    cout << endl;
     }
     catch(const char *str){
-        cout << endl << str << endl;
+    cout << endl << str << endl;
     }
     catch(...){
-        cout << endl << "Unknown exception" << endl;
+    cout << endl << "Unknown exception" << endl;
     }
 
 
-    
+
     // linked list Q implementation
     linklist_q::Queue<int> linkedListQ;
     unsigned int itemsCount = 1500000;

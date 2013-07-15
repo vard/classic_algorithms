@@ -45,11 +45,10 @@ public:
 
 void printWeightedGraph(const EdgeWeightedGraph& graph);
 
-class Mst{
-private:
+
+class MST{
 public:
-    Mst(const EdgeWeightedGraph& graph);
-    std::deque<uint32_t> edges();
+    virtual std::deque<Edge> edges() = 0;
     double weight();
 };
 
