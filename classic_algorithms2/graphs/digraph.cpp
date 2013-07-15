@@ -45,8 +45,8 @@ namespace digraph{
 
     DigraphDFSPaths::DigraphDFSPaths(const Digraph &digraph, boost::uint32_t source){
         vertexCount = digraph.vertices();
-        marked = shared_ptr<bool []>(new bool[vertexCount]());
-        edgeTo = shared_ptr<uint32_t []>(new uint32_t[vertexCount]); 
+        marked = boost::shared_ptr<bool []>(new bool[vertexCount]());
+        edgeTo = boost::shared_ptr<uint32_t []>(new uint32_t[vertexCount]); 
         dfsSource = source;
         dfs(digraph, source);
     }

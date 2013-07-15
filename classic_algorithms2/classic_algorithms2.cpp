@@ -182,19 +182,27 @@ int main(int argc, char** argv)
     mst::printWeightedGraph(roadMap);
 
     // Minimum spanning tree
-    std::cout << "Minimum spanning tree \n";
+    std::cout << "Minimum spanning tree (Kruskal) \n";
     mst::MST* mst = new mst::KruskalMST(roadMap);
     std::deque<mst::Edge> mstEdges = mst->edges();
     for(std::deque<mst::Edge>::const_iterator citer = mstEdges.begin(); citer != mstEdges.end(); ++citer){
         std::cout << *citer << std::endl;
     }
-    
-
     delete mst;
+
+    std::cout << "Minimum spanning tree (Prim, lazy approach) \n";
+    mst = new mst::LazyPrimMST(roadMap);
+    std::deque<mst::Edge> lazyPrimMstEdges = mst->edges();
+    for(std::deque<mst::Edge>::const_iterator citer = lazyPrimMstEdges.begin(); citer != lazyPrimMstEdges.end(); ++citer){
+        std::cout << *citer << std::endl;
+    }  
+    delete mst;
+    
 
 
     
 
     return 0;
 }
+
 
