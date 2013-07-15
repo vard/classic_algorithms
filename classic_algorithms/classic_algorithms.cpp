@@ -56,6 +56,8 @@ int main(int argc, char** argv)
 #endif
 {
     union_find::QuickFindUF quickFind(15);
+
+
     quickFind.unionItems(0,2);
     quickFind.unionItems(0,3);
     quickFind.unionItems(1,5);
@@ -80,8 +82,6 @@ int main(int argc, char** argv)
     weightedQuickUnion.unionItems(5,7);
     weightedQuickUnion.unionItems(6,8);
     std::cout << "Union-Find Weighted QuickUnion:\n" << weightedQuickUnion << std::endl;
-
-
 
 
     HashTableLpST<std::string, int> myHashTableLpST;
