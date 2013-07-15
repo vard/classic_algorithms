@@ -22,9 +22,13 @@ public:
     uint32_t other(uint32_t vertex) const;
     double getWeight() const;
 
-    bool operator<(const Edge& rhs);
-    bool operator==(const Edge& rhs);
-    bool operator>(const Edge& rhs);
+   /* const bool operator<(const Edge& rhs);
+    const bool operator==(const Edge& rhs);
+    const bool operator>(const Edge& rhs);*/
+
+    const bool operator<(const Edge& rhs) const;
+    const bool operator==(const Edge& rhs) const;
+    const bool operator>(const Edge& rhs) const;
     friend ostream& operator<<(ostream& outStream, const Edge& edge);
 };
 
@@ -50,6 +54,16 @@ class MST{
 public:
     virtual std::deque<Edge> edges() = 0;
     double weight();
+    virtual ~MST();
+};
+
+class KruskalMST : public MST {
+private:
+    std::deque<Edge> mst;
+public:
+    KruskalMST(const EdgeWeightedGraph& graph);
+    virtual std::deque<Edge> edges();
+    virtual ~KruskalMST();
 };
 
 

@@ -1,6 +1,8 @@
 #include "graphs/mst.h"
 #include <iomanip>
+#include <queue>
 #include "boost/lambda/lambda.hpp"
+#include "union_find.h"
 
 namespace mst{
 
@@ -24,20 +26,38 @@ namespace mst{
     double Edge::getWeight() const{
         return weight;
     }
-
-    bool Edge::operator<(const Edge &rhs){
+/*
+    const bool Edge::operator<(const Edge &rhs){
         if(weight < rhs.getWeight())
             return true;
         return false;
     }
 
-    bool Edge::operator==(const Edge& rhs){
+    const bool Edge::operator==(const Edge& rhs){
         if(weight == rhs.getWeight())
             return true;
         return false;
     }
 
-    bool Edge::operator>(const Edge& rhs){
+    const bool Edge::operator>(const Edge& rhs){
+        if( (*this == rhs) || (*this < rhs))
+            return false;
+        return true;
+    }*/
+
+    const bool Edge::operator<(const Edge &rhs) const{
+        if(weight < rhs.getWeight())
+            return true;
+        return false;
+    }
+
+    const bool Edge::operator==(const Edge& rhs) const{
+        if(weight == rhs.getWeight())
+            return true;
+        return false;
+    }
+
+    const bool Edge::operator>(const Edge& rhs) const{
         if( (*this == rhs) || (*this < rhs))
             return false;
         return true;
@@ -127,5 +147,43 @@ namespace mst{
     ostream& operator<<(ostream& outStream, const Edge& edge){
         outStream << setw(2) << edge.either() << " - " << setw(2) << edge.other(edge.either()) << " " << setw(8) << edge.weight;
         return outStream;
+    }
+
+    std::deque<Edge> KruskalMST::edges(){
+        return mst;
+    }
+
+    struct edgesCompare{
+        bool operator()(const Edge& lhs, const Edge& rhs){
+            return lhs > rhs;
+        }
+    };
+
+    MST::~MST(){
+    }
+
+    KruskalMST::KruskalMST(const EdgeWeightedGraph& graph){
+        std::priority_queue<Edge, std::vector<Edge>, edgesCompare> minPQ;
+        std::deque<Edge> edges = graph.edges();
+
+        for(std::deque<Edge>::const_iterator citer = edges.begin(); citer != edges.end(); ++citer){
+            minPQ.push(*citer);
+        }
+
+        union_find::WeightedQuickUnionUF uf(graph.getVertexCount());
+
+        while(!minPQ.empty()){
+            Edge e = minPQ.top();
+            minPQ.pop();
+            uint32_t v = e.either(), w = e.other(v);
+            if(!uf.connected(v , w)){
+                uf.unionItems(v, w);
+                mst.push_back(e);
+            }
+        }
+    }
+
+    KruskalMST::~KruskalMST(){
+
     }
 }

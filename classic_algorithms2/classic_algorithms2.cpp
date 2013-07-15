@@ -181,6 +181,17 @@ int main(int argc, char** argv)
     mst::EdgeWeightedGraph roadMap(weightedDigraphFile);
     mst::printWeightedGraph(roadMap);
 
+    // Minimum spanning tree
+    std::cout << "Minimum spanning tree \n";
+    mst::MST* mst = new mst::KruskalMST(roadMap);
+    std::deque<mst::Edge> mstEdges = mst->edges();
+    for(std::deque<mst::Edge>::const_iterator citer = mstEdges.begin(); citer != mstEdges.end(); ++citer){
+        std::cout << *citer << std::endl;
+    }
+    
+
+    delete mst;
+
 
     
 
