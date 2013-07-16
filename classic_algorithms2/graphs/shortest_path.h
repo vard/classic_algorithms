@@ -40,4 +40,17 @@ namespace spt{
         uint32_t getEdgeCount();
         std::deque<DirectedEdge> edges();
     };
+
+    class ShortestPathInterface{
+    private:
+        void relax(const DirectedEdge& edge);        
+    public:
+        double distTo(uint32_t v);
+        std::vector<DirectedEdge> pathTo(uint32_t v);
+        bool hasPathTo(uint32_t v);
+
+    };
+
+
+
 }
