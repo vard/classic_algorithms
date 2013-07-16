@@ -9,6 +9,7 @@
 #include "graphs/graph.h"
 #include "graphs/digraph.h"
 #include "graphs/mst.h"
+#include "graphs/shortest_path.h"
 #include <iostream>
 #include <fstream>
 
@@ -16,6 +17,7 @@ using namespace graph;
 using namespace digraph;
 using namespace std;
 using namespace mst;
+using namespace spt;
 
 #ifdef _WIN64
 int _tmain(int argc, _TCHAR* argv[])
@@ -197,9 +199,20 @@ int main(int argc, char** argv)
         std::cout << *citer << std::endl;
     }  
     delete mst;
+  
+    weightedDigraphFile.seekg(0, ios::beg);
     
 
+    std::cout << "Directed weighted digraph:\n";
+    spt::EdgeWeightedDigraph someMap(weightedDigraphFile);
+    std::deque<spt::DirectedEdge> someMapEdges = someMap.edges();
+    for(auto it = std::begin(someMapEdges); it != std::end(someMapEdges); ++it){
+        std::cout << *it << std::endl;
+    }
+   
+    weightedDigraphFile.close();
 
+    
     
 
     return 0;
