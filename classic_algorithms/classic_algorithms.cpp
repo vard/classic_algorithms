@@ -27,6 +27,7 @@
 #include <boost/algorithm/string/replace.hpp>
 #include <string>
 #include "union_find.h"
+#include "indexed_priority_queue.h"
 
 
 using namespace std;
@@ -36,6 +37,7 @@ using namespace linklist_q;
 using namespace array_impl_q;
 using namespace selection_sort;
 using namespace union_find;
+using namespace indexed_pq;
 
 int compare (const void * a, const void * b)
 {
@@ -55,6 +57,18 @@ int _tmain(int argc, _TCHAR* argv[])
 int main(int argc, char** argv)
 #endif
 {
+    std::string strings[10] = {"it", "was", "the", "best", "of", "times", "it", "was", "the", "worst"};
+    IndexedPQ<std::string> stringPriorityQueue(10);
+
+    for(uint32_t i = 0; i < 10; ++i)
+        stringPriorityQueue.insertElem(i, strings[i]);
+
+    while(!stringPriorityQueue.isEmpty()){
+       uint32_t i = stringPriorityQueue.deleteMin();
+       std::cout << strings[i] << " ";
+    }
+    std::cout << std::endl;
+
     union_find::QuickFindUF quickFind(15);
 
 
