@@ -211,6 +211,14 @@ int main(int argc, char** argv)
     }
    
     weightedDigraphFile.close();
+    
+    spt::DijkstraSPT djikstraShortestPath(someMap, 0);
+    uint32_t destVertex = 5;
+    std::deque<spt::DirectedEdge> shortestPath =  djikstraShortestPath.pathTo(destVertex);
+    std::cout << "Shortest path to" << destVertex << std::endl;
+    for(auto it = std::begin(shortestPath); it != std::end(shortestPath); ++it){
+        std::cout << it->from() << " -> " << it->to() << " " << it->getWeight() << std::endl;
+    }
 
     
     
