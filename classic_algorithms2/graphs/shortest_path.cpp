@@ -2,6 +2,7 @@
 #include <iomanip>
 #include <iterator>
 #include <limits>
+#include <algorithm>
 
 namespace spt{
 
@@ -89,7 +90,7 @@ namespace spt{
         return adjacentList[vertex];
     }
 
-    std::deque<DirectedEdge> EdgeWeightedDigraph::edges(){
+    std::deque<DirectedEdge> EdgeWeightedDigraph::edges() const{
         std::deque<DirectedEdge> allEdges;
         std::deque<DirectedEdge>::iterator deqIter = allEdges.begin();
         for(auto it = std::begin(adjacentList); it != std::end(adjacentList); ++it){
@@ -154,6 +155,75 @@ namespace spt{
             }   
 
         }
+    }
+
+    
+    double BellmanFordSPT::distTo( uint32_t v )
+    {
+        throw std::exception("The method or operation is not implemented.");
+    }
+
+    std::deque<DirectedEdge> BellmanFordSPT::pathTo( uint32_t v )
+    {
+        std::deque<DirectedEdge> path;
+        DirectedEdge edge = edgeTo[v];
+        for(; edge.from()!=src; edge = edgeTo[edge.from()])
+        {
+            path.push_front(edge);
+        }
+        path.push_front(edge);
+        return path;
+        throw std::exception("The method or operation is not implemented.");
+    }
+
+    BellmanFordSPT::BellmanFordSPT(const EdgeWeightedDigraph& digraph, uint32_t source )
+    {
+        src = source;
+        uint32_t vertices = digraph.getVertexCount();
+        std::numeric_limits<double> doubleLimits;
+        
+        distanceTo.resize(vertices, doubleLimits.infinity());
+        edgeTo.resize(vertices);
+        distanceTo[source] = 0;
+
+        DirectedEdges allEdges = digraph.edges();  
+        for(uint32_t v = 0; v < vertices; ++v){
+            verticesDistancetoChanged.push_back(v);
+        }
+        
+        for(uint32_t v = 0; v < vertices; ++v){
+            while(!verticesDistancetoChanged.empty())
+            {
+                uint32_t vertex = verticesDistancetoChanged.front();
+                verticesDistancetoChanged.pop_front();
+                DirectedEdges adj = digraph.adjacent(vertex);
+                for(auto edge : adj){
+                    relax(edge);
+                }
+
+            }
+           /* for(auto it = std::begin(verticesDistancetoChanged); it != std::end(verticesDistancetoChanged); ++it){
+                DirectedEdges adj = digraph.adjacent(*it);
+                //std::bind1st(std::mem_fun(&spt::BellmanFordSPT::relax), this);
+                for(auto edge : adj){
+                    relax(edge);
+                }
+                verticesDistancetoChanged.erase(it);
+            }   */
+        }
+    }
+
+    void BellmanFordSPT::relax(const DirectedEdge& edge )
+    {
+        uint32_t v = edge.from();
+        uint32_t w = edge.to();
+        if(distanceTo[w] > distanceTo[v] + edge.getWeight()){
+            distanceTo[w] = distanceTo[v] + edge.getWeight();
+            edgeTo[w] = edge;   
+            if(std::find(verticesDistancetoChanged.begin(), verticesDistancetoChanged.end(), w) == verticesDistancetoChanged.end())
+                verticesDistancetoChanged.push_back(w);
+        }
+
     }
 
 }

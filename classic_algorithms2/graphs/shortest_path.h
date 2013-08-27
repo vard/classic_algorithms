@@ -44,7 +44,7 @@ namespace spt{
         std::deque<DirectedEdge> adjacent(uint32_t vertex) const;
         uint32_t getVertexCount() const;
         uint32_t getEdgeCount() const;
-        std::deque<DirectedEdge> edges();
+        std::deque<DirectedEdge> edges() const;
     };
 
     struct CompareDistance : public std::binary_function<double, double, bool>
@@ -80,7 +80,20 @@ namespace spt{
         virtual std::deque<DirectedEdge> pathTo(uint32_t v);
         //virtual bool hasPathTo(uint32_t v);
     };
+    
 
-
+    class BellmanFordSPT : public ShortestPathInterface{
+    private:
+        typedef std::deque<DirectedEdge> DirectedEdges;
+        std::deque<uint32_t> verticesDistancetoChanged;
+        std::deque<double> distanceTo;
+        DirectedEdges edgeTo;
+        void relax(const DirectedEdge& edge);
+        uint32_t src;
+    public:
+        BellmanFordSPT(const EdgeWeightedDigraph& digraph, uint32_t source);
+        virtual double distTo( uint32_t v );
+        virtual std::deque<DirectedEdge> pathTo( uint32_t v );
+    };
 
 }
