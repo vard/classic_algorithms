@@ -9,6 +9,7 @@
 #include "graphs/graph.h"
 #include "graphs/digraph.h"
 #include "graphs/mst.h"
+#include "graphs/shortest_path.h"
 #include <iostream>
 #include <fstream>
 
@@ -16,17 +17,18 @@ using namespace graph;
 using namespace digraph;
 using namespace std;
 using namespace mst;
+using namespace spt;
 
 #ifdef _WIN64
 int _tmain(int argc, _TCHAR* argv[])
 #endif
 
 #ifdef _WIN32
-int _tmain(int argc, _TCHAR* argv[])
+    int _tmain(int argc, _TCHAR* argv[])
 #endif
 
 #ifdef __linux__
-int main(int argc, char** argv)
+    int main(int argc, char** argv)
 #endif
 
 {
@@ -197,10 +199,40 @@ int main(int argc, char** argv)
         std::cout << *citer << std::endl;
     }  
     delete mst;
-    
+
+    weightedDigraphFile.seekg(0, ios::beg);
 
 
-    
+    std::cout << "Directed weighted digraph:\n";
+    spt::EdgeWeightedDigraph someMap(weightedDigraphFile);
+    std::deque<spt::DirectedEdge> someMapEdges = someMap.edges();
+    for(auto it = std::begin(someMapEdges); it != std::end(someMapEdges); ++it){
+        std::cout << *it << std::endl;
+    }
+
+    weightedDigraphFile.close();
+
+    {
+        spt::DijkstraSPT djikstraShortestPath(someMap, 0);
+        uint32_t destVertex = 5;
+        std::deque<spt::DirectedEdge> shortestPath =  djikstraShortestPath.pathTo(destVertex);
+        std::cout << "Shortest path to " << destVertex << std::endl;
+        for(auto it = std::begin(shortestPath); it != std::end(shortestPath); ++it){
+            std::cout << it->from() << " -> " << it->to() << " " << it->getWeight() << std::endl;
+        }
+    }
+
+
+    {
+        spt::BellmanFordSPT bellmanFordShortestPath(someMap, 0);
+        uint32_t destVertex = 8;
+        std::deque<spt::DirectedEdge>  shortestPath =  bellmanFordShortestPath.pathTo(destVertex);
+        std::cout << "Shortest path(Bellman-Ford) to " << destVertex << std::endl;
+        for(auto it = std::begin(shortestPath); it != std::end(shortestPath); ++it){
+            std::cout << it->from() << " -> " << it->to() << " " << it->getWeight() << std::endl;
+        }
+    }
+
 
     return 0;
 }

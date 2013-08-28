@@ -23,9 +23,10 @@ namespace indexed_pq
         void exch(uint32_t i, uint32_t j);
         bool greater(uint32_t i, uint32_t j);
     public:
+        //IndexedPQ();
         IndexedPQ(uint32_t maxElem);
         bool isEmpty();
-        bool contains(int32_t i) throw (std::out_of_range);
+        bool contains(uint32_t i) throw (std::out_of_range);
         uint32_t size();
         void insertElem(uint32_t index, const T& key) throw (std::invalid_argument);
         void deleteElem(uint32_t index) throw (std::out_of_range, const char*);
@@ -34,13 +35,8 @@ namespace indexed_pq
         void changeKey(uint32_t index, const T& key);
         T keyOf(uint32_t index);
         int deleteMin();
-        T minKey();
-
-
-
+        T minKey();        
     };
-
-
 
     template<typename T>
     T indexed_pq::IndexedPQ<T>::minKey()
@@ -95,10 +91,12 @@ namespace indexed_pq
             throw std::out_of_range("index is out of bound");
         if(!contains(index))
             throw "no such element";
-        if(keys[index] == key)
+
+        if(keys_[index] == key)
             throw std::invalid_argument("Calling increaseKey() with given argument would not strictly increase the key");
-        keys[index] = key;
-        swim(qp[index]);
+        keys_[index] = key;
+        swim(qp_[index]);
+
     }
 
     template<typename T>
@@ -183,8 +181,6 @@ namespace indexed_pq
                 return true;
             }
         }
-        
-    }
 
     template<typename T>
     void indexed_pq::IndexedPQ<T>::insertElem( uint32_t index, const T& key )
@@ -199,9 +195,7 @@ namespace indexed_pq
         swim(elemCount_);
     }
 
-
-
-template<typename T>IndexedPQ<T>::IndexedPQ(uint32_t maxElem){
+    template<typename T>IndexedPQ<T>::IndexedPQ(uint32_t maxElem){
     qp_.resize(maxElem+1, -1);
     pq_.resize(maxElem+1);
     keys_.resize(maxElem+1);
@@ -209,11 +203,12 @@ template<typename T>IndexedPQ<T>::IndexedPQ(uint32_t maxElem){
     maxElemCount_ = maxElem;
 }
 
-template<typename T>bool IndexedPQ<T>::isEmpty(){
+    template<typename T>bool IndexedPQ<T>::isEmpty(){
     return (0 == elemCount_);
 }
 
-template<typename T>bool IndexedPQ<T>::contains(int32_t i){
+    template<typename T>bool IndexedPQ<T>::contains(uint32_t i){
+
     if((i < 0) || (i >= maxElemCount_)){
         throw std::out_of_range("out of range");
     }
@@ -221,11 +216,11 @@ template<typename T>bool IndexedPQ<T>::contains(int32_t i){
     return -1 != qp_[i];
 }
 
-template<typename T>uint32_t IndexedPQ<T>::size(){
+    template<typename T>uint32_t IndexedPQ<T>::size(){
     return elemCount_;
 }
 
-
-
-
 }
+
+
+
