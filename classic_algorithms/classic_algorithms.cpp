@@ -29,7 +29,6 @@
 #include "union_find.h"
 #include "indexed_priority_queue.h"
 
-i
 using namespace std;
 using namespace linked_list_stack;
 using namespace array_impl_stack;

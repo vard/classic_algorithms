@@ -181,6 +181,7 @@ namespace indexed_pq
                 return true;
             }
         }
+    }
 
     template<typename T>
     void indexed_pq::IndexedPQ<T>::insertElem( uint32_t index, const T& key )
