@@ -10,6 +10,7 @@
 #include "graphs/digraph.h"
 #include "graphs/mst.h"
 #include "graphs/shortest_path.h"
+#include "graphs/max_flow.h"
 #include <iostream>
 #include <fstream>
 
@@ -18,6 +19,7 @@ using namespace digraph;
 using namespace std;
 using namespace mst;
 using namespace spt;
+using namespace max_flow;
 
 #ifdef _WIN64
 int _tmain(int argc, _TCHAR* argv[])
@@ -210,7 +212,7 @@ int _tmain(int argc, _TCHAR* argv[])
         std::cout << *it << std::endl;
     }
 
-    weightedDigraphFile.close();
+   
 
     {
         spt::DijkstraSPT djikstraShortestPath(someMap, 0);
@@ -233,7 +235,19 @@ int _tmain(int argc, _TCHAR* argv[])
         }
     }
 
+    // FoldFulkerson max flow retrieval algorithm
+    {
+        weightedDigraphFile.seekg(0, ios::beg);
 
+        max_flow::FlowNetwork fordFulkersonMaxFlow(weightedDigraphFile);
+        max_flow::FordFulkersonMaxFlow(fordFulkersonMaxFlow, 0, 9);
+
+        std::cout << "Ford Fulkerson algorithm "<< std::endl << "Flow network max flow: " << std::endl << fordFulkersonMaxFlow;
+
+    }
+
+
+     weightedDigraphFile.close();
     return 0;
 }
 
