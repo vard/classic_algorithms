@@ -13,7 +13,7 @@ namespace union_find{
     }
 
     bool QuickFindUF::connected(boost::uint32_t p, boost::uint32_t q){
-        return id[q] == id[q];
+        return id[q] == id[p];
     }
 
     void QuickFindUF::unionItems(boost::uint32_t p, boost::uint32_t q){

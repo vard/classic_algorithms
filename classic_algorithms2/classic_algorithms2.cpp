@@ -12,7 +12,7 @@
 #include "graphs/graph.h"
 #include "graphs/digraph.h"
 #include "graphs/mst.h"
-#include "graphs/shortest_path.h"
+№include "graphs/shortest_path.h"
 #include "graphs/max_flow.h"
 #include "sorts/radix_sort.h"
 
@@ -23,6 +23,7 @@ using namespace std;
 using namespace mst;
 using namespace spt;
 using namespace max_flow;
+
 
 #ifdef _WIN64
 int _tmain(int argc, _TCHAR* argv[])
@@ -37,10 +38,12 @@ int _tmain(int argc, _TCHAR* argv[])
 #endif
 
 {
+    std::cout << "Algoritms 2" << std::endl;
     std::ifstream vertexFile;
     try{
         vertexFile.open("vertexes.txt", std::ifstream::in);
-    } catch(std::ifstream::failure e){
+    } catch(const std::exception& e){
+        std::cout << e.what();
         std::cerr << "Exception opening file\n";
     }
     graph::Graph socialNetFriends(vertexFile);
@@ -50,6 +53,8 @@ int _tmain(int argc, _TCHAR* argv[])
         for(std::vector<int>::iterator iter = adjacent.begin(); iter != adjacent.end(); iter++)
             cout << vertex <<  " - " << *iter << endl;
     }
+
+
 
     // use dfs to find all paths from 0
     std::cout << "DFS results:" << std::endl;
@@ -206,6 +211,7 @@ int _tmain(int argc, _TCHAR* argv[])
     delete mst;
 
     weightedDigraphFile.seekg(0, ios::beg);
+    
 
 
     std::cout << "Directed weighted digraph:\n";
@@ -217,6 +223,7 @@ int _tmain(int argc, _TCHAR* argv[])
 
 
 
+    
     {
         spt::DijkstraSPT djikstraShortestPath(someMap, 0);
         uint32_t destVertex = 5;
@@ -293,6 +300,31 @@ int _tmain(int argc, _TCHAR* argv[])
         stringArray.push_back("akakaaaaaa");
 
         radix_sort::threeWayInnerSort(stringArray);
+    }
+
+ 
+    // substrng search
+    {
+        std::string text = "js hohma lsj;df;lsjkdf;l jkjd";
+        std::string substring = "hoh";
+
+        std::cout << "Brute force:" << std::endl;
+        substring_search::BruteForceSearch bruteforceSearch;
+        std::cout << std::endl << "Search substring " << substring << " in string "
+                  << text << std::endl << "Result index: "
+                  << bruteforceSearch.search(substring, text) << std::endl << std::endl;
+
+        std::cout << "KMP search" << std::endl;
+        substring_search::KMPSubstringSearch kmpSearch;
+        std::cout << "Search substring " << substring << " in string "
+                  << text << std::endl << "Result index: "
+                  << kmpSearch.search(substring, text) << std::endl << std::endl;
+
+        std::cout << "Boyer-Moore search" << std::endl;
+        substring_search::BoyerMooreSubstringSearch bmSearch;
+        std::cout << "Search substring " << substring << " in string "
+                  << text << std::endl << "Result index: "
+                  << bmSearch.search(substring, text) << std::endl << std::endl;
     }
 
 

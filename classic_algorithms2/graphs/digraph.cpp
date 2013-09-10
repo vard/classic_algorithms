@@ -14,8 +14,8 @@ namespace digraph{
     }
 
     Digraph::Digraph(uint32_t vertexCount)
-        :adjacencyList(new std::set<uint32_t>[vertexCount]),
-        vertexCount(vertexCount) {
+        :vertexCount(vertexCount),
+         adjacencyList(new std::set<uint32_t>[vertexCount]){
     }
 
     void Digraph::addEdge(boost::uint32_t v, boost::uint32_t w){
