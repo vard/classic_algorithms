@@ -15,3 +15,13 @@ classic_algorithms2/ReadMe.txt
 classic_algorithms2/stdafx.cpp
 classic_algorithms2/stdafx.h
 classic_algorithms2/targetver.h
+*.vcxproj
+*.filters
+Backup/
+*.suo
+*.sdf
+*.opensdf
+_UpgradeReport_Files/
+ipch/
+UpgradeLog.XML
+UpgradeLog.htm

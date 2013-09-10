@@ -6,13 +6,16 @@
 #include "stdafx.h"
 #endif
 
+#include <iostream>
+#include <fstream>
+
 #include "graphs/graph.h"
 #include "graphs/digraph.h"
 #include "graphs/mst.h"
 #include "graphs/shortest_path.h"
 #include "graphs/max_flow.h"
-#include <iostream>
-#include <fstream>
+#include "sorts/radix_sort.h"
+
 
 using namespace graph;
 using namespace digraph;
@@ -212,7 +215,7 @@ int _tmain(int argc, _TCHAR* argv[])
         std::cout << *it << std::endl;
     }
 
-   
+
 
     {
         spt::DijkstraSPT djikstraShortestPath(someMap, 0);
@@ -246,8 +249,53 @@ int _tmain(int argc, _TCHAR* argv[])
 
     }
 
+    weightedDigraphFile.close();
 
-     weightedDigraphFile.close();
+    // Radix sort LSD
+    {
+        std::deque<std::string> stringArray;
+        stringArray.push_back("abcde");
+        stringArray.push_back("baaaa");
+        stringArray.push_back("abcde");
+        stringArray.push_back("abcde");
+        stringArray.push_back("rbcda");
+        stringArray.push_back("ancdc");
+
+        radix_sort::LSDStringRadixSort(stringArray, 5);
+    }
+
+    // Radix sort MSD
+    {
+        std::deque<std::string> stringArray;
+        stringArray.push_back("abcde111");
+        stringArray.push_back("baaaa");
+        stringArray.push_back("abcde");
+        stringArray.push_back("abcde");
+        stringArray.push_back("rbcda");
+        stringArray.push_back("ancdc");
+        stringArray.push_back("akaka");
+        stringArray.push_back("akakaaaaaa");
+
+
+        radix_sort::MSDStringRadixSort(stringArray);
+    }
+
+    // three-way quick sort
+    {
+        std::deque<std::string> stringArray;
+        stringArray.push_back("abcde111");
+        stringArray.push_back("baaaa");
+        stringArray.push_back("abcde");
+        stringArray.push_back("abcde");
+        stringArray.push_back("rbcda");
+        stringArray.push_back("ancdc");
+        stringArray.push_back("akaka");
+        stringArray.push_back("akakaaaaaa");
+
+        radix_sort::threeWayInnerSort(stringArray);
+    }
+
+
     return 0;
 }
 
