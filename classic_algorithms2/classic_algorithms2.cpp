@@ -8,13 +8,16 @@
 
 #include <iostream>
 #include <fstream>
+#include <utility>
 
 #include "graphs/graph.h"
 #include "graphs/digraph.h"
 #include "graphs/mst.h"
-№include "graphs/shortest_path.h"
+#include "graphs/shortest_path.h"
 #include "graphs/max_flow.h"
 #include "sorts/radix_sort.h"
+#include "substring_search.h"
+#include "trie.h"
 
 
 using namespace graph;
@@ -23,6 +26,7 @@ using namespace std;
 using namespace mst;
 using namespace spt;
 using namespace max_flow;
+using namespace trie;
 
 
 #ifdef _WIN64
@@ -325,6 +329,43 @@ int _tmain(int argc, _TCHAR* argv[])
         std::cout << "Search substring " << substring << " in string "
                   << text << std::endl << "Result index: "
                   << bmSearch.search(substring, text) << std::endl << std::endl;
+    }
+
+
+    // Tries
+    {      
+        std::deque<std::pair<std::string, uint32_t>> notebook;
+        notebook.push_back(std::make_pair("Skornyakov", 15));
+        notebook.push_back(std::make_pair("Igumnov", 12));
+        notebook.push_back(std::make_pair("Skornyakova", 11));
+        notebook.push_back(std::make_pair("Ivanov", 18));
+
+        trie::Trie<uint32_t> uintTrie;
+        std::for_each(std::begin(notebook), std::end(notebook), [&](const std::pair<std::string, uint32_t>& record){
+            uintTrie.put(record.first, record.second);
+        });
+
+        std::for_each(std::begin(notebook), std::end(notebook), [&](const std::pair<std::string, uint32_t>& record){
+            uint32_t val = 0;
+            std::cout << record.first << ": ";
+            if(uintTrie.get(record.first, val))
+                std::cout << val << std::endl;
+            else
+                std::cout << " not found" << std::endl;
+            
+        });
+
+        /*
+        uint32_t val;
+        if(uintTrie.get("Skornyakov", val)){
+            std::cout << "Skornyakov: " << val <<std::endl;
+        } else
+            std::cout << "Skornyakov not found" << std::endl;
+
+        if(uintTrie.get("Skornyakova", val)){
+            std::cout << "Skornykova: " << val <<std::endl;
+        } else
+            std::cout << "Skornykova not found" << std::endl;*/
     }
 
 
