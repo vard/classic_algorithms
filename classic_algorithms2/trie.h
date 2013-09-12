@@ -18,18 +18,18 @@ namespace trie{
         //TrieNode& operator=(const TrieNode& rhs);
     };
 
-   
 
-  /*  template<typename ItemType>
+
+    /*  template<typename ItemType>
     TrieNode& trie::TrieNode<ItemType>::operator=( const TrieNode& rhs ){
-        this.alphabetSize = ths.alphabetSize;
-        this.value = rhs.value;
-        this.next
+    this.alphabetSize = ths.alphabetSize;
+    this.value = rhs.value;
+    this.next
     }*/
 
     template<typename ItemType>
     trie::TrieNode<ItemType>::TrieNode(){
-        
+
         next.resize(alphabetSize);
     }
 
@@ -96,5 +96,99 @@ namespace trie{
     {
 
     }
+
+    template<typename ItemType> struct TSTNode{
+        std::shared_ptr<TSTNode<ItemType>> left;
+        std::shared_ptr<TSTNode<ItemType>> middle;
+        std::shared_ptr<TSTNode<ItemType>> right;
+        char c;
+        ItemType value;
+        //TSTNode(char ch);
+        //TSTNode();
+    };
+
+    /*  template<typename ItemType>
+    trie::TSTNode<ItemType>::TSTNode()
+    middle(NULL),
+    right(NULL){
+
+    }
+
+    template<typename ItemType>
+    trie::TSTNode<ItemType>::TSTNode( char ch )
+    left(NULL),
+    middle(NULL),
+    right(NULL),
+    c(ch){
+
+    }*/
+
+    template<typename ItemType> class TST{
+    private:
+        std::shared_ptr<TSTNode<ItemType>> root;
+        std::shared_ptr<TSTNode<ItemType>> get(std::shared_ptr<TSTNode<ItemType>> node, const std::string& key, uint32_t d);
+        std::shared_ptr<TSTNode<ItemType>> put(std::shared_ptr<TSTNode<ItemType>> node, const std::string& key, const ItemType& value, uint32_t d);
+    public:
+        void put(const std::string& key, const ItemType& value);
+        bool get(const std::string& key, ItemType& value);
+    };
+
+    template<typename ItemType>
+    std::shared_ptr<TSTNode<ItemType>> trie::TST<ItemType>::get( std::shared_ptr<TSTNode<ItemType>> node, const std::string& key, uint32_t d ){
+        if(nullptr == node){
+            return std::shared_ptr<TSTNode<ItemType>>(nullptr);
+        }
+        char ch = key.at(d);
+        if(ch < node->c){
+            return get(node->left, key, d);
+        } else if (ch > node->c){
+            return get(node->right, key, d);
+        } else if(d < key.size()-1){
+            return get(node->middle, key, d+1);
+        } else {
+            return node;
+        }
+    }
+
+    template<typename ItemType>
+    void trie::TST<ItemType>::put( const std::string& key, const ItemType& value ){
+        root = put(root, key, value, 0);
+    }
+
+    template<typename ItemType>
+    std::shared_ptr<TSTNode<ItemType>> trie::TST<ItemType>::put( std::shared_ptr<TSTNode<ItemType>> node, const std::string& key, const ItemType& value, uint32_t d ){
+
+        char ch = key.at(d);
+        if(nullptr==node){
+            node = std::shared_ptr<TSTNode<ItemType>>(new TSTNode<ItemType>());
+            node->c = ch;      
+        }
+        if(ch < node->c){
+            node->left = put(node->left, key, value, d);
+        } else if(ch > node->c){
+            node->right = put(node->right, key, value, d);
+        } else if(d < key.size()-1) { // ch == node0->c
+            node->middle = put(node->middle, key, value, d+1);
+        } else {
+            node->value = value;
+        }
+
+        return node;
+
+
+    }
+
+    template<typename ItemType>
+    bool trie::TST<ItemType>::get( const std::string& key, ItemType& value ){
+        std::shared_ptr<TSTNode<ItemType>> res = get(root, key, 0);
+        if(nullptr != res){
+            value = res->value;
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+
 
 }

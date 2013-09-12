@@ -215,7 +215,7 @@ int _tmain(int argc, _TCHAR* argv[])
     delete mst;
 
     weightedDigraphFile.seekg(0, ios::beg);
-    
+
 
 
     std::cout << "Directed weighted digraph:\n";
@@ -227,7 +227,7 @@ int _tmain(int argc, _TCHAR* argv[])
 
 
 
-    
+
     {
         spt::DijkstraSPT djikstraShortestPath(someMap, 0);
         uint32_t destVertex = 5;
@@ -306,7 +306,7 @@ int _tmain(int argc, _TCHAR* argv[])
         radix_sort::threeWayInnerSort(stringArray);
     }
 
- 
+
     // substrng search
     {
         std::string text = "js hohma lsj;df;lsjkdf;l jkjd";
@@ -315,20 +315,20 @@ int _tmain(int argc, _TCHAR* argv[])
         std::cout << "Brute force:" << std::endl;
         substring_search::BruteForceSearch bruteforceSearch;
         std::cout << std::endl << "Search substring " << substring << " in string "
-                  << text << std::endl << "Result index: "
-                  << bruteforceSearch.search(substring, text) << std::endl << std::endl;
+            << text << std::endl << "Result index: "
+            << bruteforceSearch.search(substring, text) << std::endl << std::endl;
 
         std::cout << "KMP search" << std::endl;
         substring_search::KMPSubstringSearch kmpSearch;
         std::cout << "Search substring " << substring << " in string "
-                  << text << std::endl << "Result index: "
-                  << kmpSearch.search(substring, text) << std::endl << std::endl;
+            << text << std::endl << "Result index: "
+            << kmpSearch.search(substring, text) << std::endl << std::endl;
 
         std::cout << "Boyer-Moore search" << std::endl;
         substring_search::BoyerMooreSubstringSearch bmSearch;
         std::cout << "Search substring " << substring << " in string "
-                  << text << std::endl << "Result index: "
-                  << bmSearch.search(substring, text) << std::endl << std::endl;
+            << text << std::endl << "Result index: "
+            << bmSearch.search(substring, text) << std::endl << std::endl;
     }
 
 
@@ -339,6 +339,8 @@ int _tmain(int argc, _TCHAR* argv[])
         notebook.push_back(std::make_pair("Igumnov", 12));
         notebook.push_back(std::make_pair("Skornyakova", 11));
         notebook.push_back(std::make_pair("Ivanov", 18));
+
+        std::cout << "Trie:" << std::endl;
 
         trie::Trie<uint32_t> uintTrie;
         std::for_each(std::begin(notebook), std::end(notebook), [&](const std::pair<std::string, uint32_t>& record){
@@ -352,20 +354,38 @@ int _tmain(int argc, _TCHAR* argv[])
                 std::cout << val << std::endl;
             else
                 std::cout << " not found" << std::endl;
-            
+
+        });
+    }
+
+    // TST - Ternary Search Trie
+    {
+        std::deque<std::pair<std::string, uint32_t>> notebook;
+        notebook.push_back(std::make_pair("Skornyakov", 15));
+        notebook.push_back(std::make_pair("Igumnov", 12));
+        notebook.push_back(std::make_pair("Skornyakova", 11));
+        notebook.push_back(std::make_pair("Ivanov", 18));
+        notebook.push_back(std::make_pair("Skotty", 99));
+        notebook.push_back(std::make_pair("Veleri", 69));
+
+        std::cout << std::endl;
+        std::cout << "Ternary Search Trie:" << std::endl;
+
+        trie::TST<uint32_t> uintTrie;
+        std::for_each(std::begin(notebook), std::end(notebook), [&](const std::pair<std::string, uint32_t>& record){
+            uintTrie.put(record.first, record.second);
         });
 
-        /*
-        uint32_t val;
-        if(uintTrie.get("Skornyakov", val)){
-            std::cout << "Skornyakov: " << val <<std::endl;
-        } else
-            std::cout << "Skornyakov not found" << std::endl;
+        std::for_each(std::begin(notebook), std::end(notebook), [&](const std::pair<std::string, uint32_t>& record){
+            uint32_t val = 0;
+            std::cout << record.first << ": ";
+            if(uintTrie.get(record.first, val))
+                std::cout << val << std::endl;
+            else
+                std::cout << " not found" << std::endl;
 
-        if(uintTrie.get("Skornyakova", val)){
-            std::cout << "Skornykova: " << val <<std::endl;
-        } else
-            std::cout << "Skornykova not found" << std::endl;*/
+        });
+
     }
 
 
